@@ -2,59 +2,212 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>XHS Visual Pipeline · 视觉组件库</title>
+<title>XHS Visual Pipeline · 组件全集</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<!-- CSS 加载顺序：tokens → preset → brand（最高优先级） -->
-<link rel="stylesheet" href="./templates/tokens.css">
-<link rel="stylesheet" href="./presets/warm-copper.css"><!-- AI 初始化时替换为用户选定的 preset --><link rel="stylesheet" href="./config/brand.css">
-<style>
-/* visual-library 专属：组件容器 & 标签 */
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.8;-webkit-font-smoothing:antialiased}
-.lib-wrapper{width:1080px;margin:0 auto;padding:48px 0 80px}
-.lib-label{color:var(--light);font-size:20px;font-weight:500;margin:0 56px 10px;letter-spacing:0.04em}
-.lib-section{margin-bottom:48px;padding:0 56px}
-.lib-divider{border:none;border-top:1px dashed var(--border);margin:0 56px 40px}
-/* banner */
-.lib-banner{background:var(--text);color:var(--bg);padding:14px 56px;font-size:20px;position:sticky;top:0;z-index:999;display:flex;align-items:center;gap:14px}
-.lib-banner span{opacity:0.65}
-.lib-banner code{background:rgba(255,255,255,0.1);padding:2px 8px;border-radius:4px;font-family:var(--font-mono);font-size:18px}
 
-/* 以下 CSS 从 base.html 同步，确保组件库独立渲染正确 */
-body::before{content:'';position:fixed;top:0;left:0;bottom:0;width:4px;z-index:10;background:linear-gradient(to bottom,var(--accent),var(--accent2),var(--accent3))}
+<style>
+/* ═══════════════════════════════════════════════
+   XHS Visual Pipeline · 组件全集展示
+   Theme: ocean-blue（海蓝）— 区别于默认暖铜
+   ═══════════════════════════════════════════════ */
+
+/* ── Token 层：色板（tokens.css） ── */
+:root {
+  --bg:        #FFFFFF;
+  --card:      #FFFFFF;
+  --border:    #C8D8E8;
+  --tag-bg:    #E4EEF6;
+
+  --text:      #1A2B3C;
+  --muted:     #5A7A9A;
+  --light:     #8AAABF;
+
+  --accent:    #1B4F8A;
+  --accent2:   #2980B9;
+  --accent3:   #5DADE2;
+  --accent4:   #85C1E9;
+
+  --badge-yes-bg:    #E8F0E8;
+  --badge-yes-text:  #3D6B4C;
+  --badge-cond-bg:   #F5ECE0;
+  --badge-cond-text: #8C6830;
+  --badge-risk-bg:   #F0E8F0;
+  --badge-risk-text: #6B4C7A;
+
+  --hl-accent-bg:  rgba(27,79,138,0.04);
+  --hl-green-bg:   rgba(41,128,185,0.04);
+  --hl-blue-bg:    rgba(93,173,226,0.04);
+  --hl-purple-bg:  rgba(133,193,233,0.04);
+
+  --tag-cloud-bg:     rgba(41,128,185,0.06);
+  --tag-cloud-border: rgba(41,128,185,0.15);
+  --tag-local-bg:     rgba(27,79,138,0.05);
+  --tag-local-border: rgba(27,79,138,0.12);
+  --param-accent-bg:  rgba(27,79,138,0.08);
+  --param-green-bg:   rgba(41,128,185,0.08);
+  --param-blue-bg:    rgba(93,173,226,0.08);
+  --param-accent-val-bg: rgba(27,79,138,0.05);
+  --param-green-val-bg:  rgba(41,128,185,0.06);
+  --param-blue-val-bg:   rgba(93,173,226,0.06);
+  --param-purple-val-bg: rgba(133,193,233,0.06);
+  --note-header-bg:   rgba(27,79,138,0.05);
+  --dt-cloud-bg:      rgba(41,128,185,0.08);
+  --dt-local-bg:      rgba(27,79,138,0.06);
+
+  --term-bg:       #1E1E1E;
+  --term-bar:      #2D2D2D;
+  --term-text:     #D4D4D4;
+  --term-green:    #6A9955;
+  --term-blue:     #4EC9B0;
+  --term-orange:   #CE9178;
+  --term-red:      #EA6962;
+  --term-comment:  #6A9955;
+
+  --shadow:        0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
+  --font-display:  "Noto Serif SC", serif;
+  --font-body:     "Noto Sans SC", "PingFang SC", system-ui, sans-serif;
+  --font-mono:     "JetBrains Mono", monospace;
+}
+
+/* ── 展示页额外样式 ── */
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:var(--font-body);
+  background:#E8F0F8;color:var(--text);line-height:1.8;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* 顶部导航说明 */
+.page-intro{
+  max-width:1160px;margin:0 auto;padding:48px 40px 24px;
+}
+.page-intro h1{
+  font-family:var(--font-display);font-size:44px;font-weight:700;
+  color:var(--accent);margin-bottom:6px;
+}
+.page-intro .sub{
+  font-size:22px;color:var(--muted);
+  margin-bottom:32px;
+}
+.page-intro .meta-grid{
+  display:flex;gap:24px;flex-wrap:wrap;
+  font-size:20px;color:var(--muted);
+}
+.page-intro .meta-grid span{
+  background:var(--card);padding:6px 18px;border-radius:6px;
+  border:1px solid var(--border);
+}
+.page-intro .meta-grid em{font-style:normal;color:var(--text);font-weight:600}
+
+/* 组件卡片 */
+.component-group{
+  max-width:1160px;margin:0 auto 40px;padding:0 40px;
+}
+.component-group .group-title{
+  font-family:var(--font-display);font-size:28px;font-weight:700;
+  color:var(--accent);margin-bottom:16px;
+  padding:10px 20px;background:var(--card);
+  border-left:4px solid var(--accent);border-radius:0 8px 8px 0;
+  display:flex;align-items:center;gap:10px;
+}
+.component-group .group-title .badge{
+  font-size:18px;font-weight:500;color:#fff;
+  background:var(--accent);padding:2px 10px;border-radius:4px;
+  font-family:var(--font-mono);margin-left:auto;
+}
+.demo-box{
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:12px;padding:40px 60px;
+  box-shadow:0 2px 8px rgba(27,79,138,0.06);
+}
+
+/* ── 以下为组件样式（同 base.html v3.1） ── */
+body *{max-width:1080px}
+.demo-box{max-width:100%}
+
+/* Header */
 .header{margin-bottom:50px;padding-bottom:32px;border-bottom:1px solid var(--border)}
 .header .pretitle{font-size:24px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
 .header h1{font-family:var(--font-display);font-size:52px;font-weight:700;color:var(--text);margin-bottom:10px}
 .header .subtitle{font-size:26px;color:var(--muted);line-height:1.6}
+
+/* Section */
 .section{margin-bottom:44px}
-.section h2{font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--text);margin-bottom:6px;padding-left:18px;border-left:3px solid var(--accent)}
+.section h2{
+  font-family:var(--font-display);font-size:32px;font-weight:700;
+  color:var(--text);margin-bottom:6px;padding-left:18px;border-left:3px solid var(--accent);
+}
 .section h2.h-green{border-left-color:var(--accent2)}
+.section h2.h-blue{border-left-color:var(--accent3)}
+.section h2.h-purple{border-left-color:var(--accent4)}
 .section .desc{font-size:24px;color:var(--muted);margin-bottom:20px;padding-left:22px}
-.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px 28px;margin-bottom:16px;box-shadow:var(--shadow)}
+
+/* Card */
+.card{
+  background:var(--card);border:1px solid var(--border);border-radius:10px;
+  padding:24px 28px;margin-bottom:16px;box-shadow:var(--shadow);
+}
 .card-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-.card-header .icon{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#fff;flex-shrink:0}
+.card-header .icon{
+  width:44px;height:44px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;font-weight:700;color:#fff;flex-shrink:0;
+}
 .icon.c-accent{background:var(--accent)}
 .icon.c-green{background:var(--accent2)}
+.icon.c-blue{background:var(--accent3)}
+.icon.c-purple{background:var(--accent4)}
 .card-header h3{font-size:28px;font-weight:600}
 .card-header .loc{font-size:22px;font-weight:500;padding:4px 14px;border-radius:6px;margin-left:auto;flex-shrink:0}
 .loc.loc-green{color:var(--accent2);background:var(--param-green-val-bg)}
+.loc.loc-blue{color:var(--accent3);background:var(--param-blue-val-bg)}
+.loc.loc-purple{color:var(--accent4);background:var(--param-purple-val-bg)}
 .card-body{font-size:26px;color:var(--muted);line-height:1.85}
 .card-body strong{color:var(--text);font-weight:600}
+
+/* Steps */
 .steps{margin:18px 0}
 .step{display:flex;gap:18px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--border)}
 .step:last-child{border-bottom:none}
-.step-num{width:40px;height:40px;border-radius:50%;background:var(--accent);color:#fff;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-num{
+  width:40px;height:40px;border-radius:50%;background:var(--accent);
+  color:#fff;font-size:22px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
 .step-num.sn-green{background:var(--accent2)}
 .step-num.sn-blue{background:var(--accent3)}
+.step-num.sn-purple{background:var(--accent4)}
 .step-title{font-size:26px;font-weight:600;color:var(--text);margin-bottom:3px}
 .step-desc{font-size:24px;color:var(--muted);line-height:1.7}
-.hl-block{background:var(--hl-accent-bg);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:18px 22px;margin:18px 0;font-size:24px;line-height:1.85;color:var(--text)}
+
+/* Image */
+.img-wrap{margin:18px 0;border-radius:10px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow)}
+.img-wrap img{width:100%;height:auto;display:block}
+.img-caption{font-size:22px;color:var(--light);text-align:center;padding:10px 0;background:var(--card);border-top:1px solid var(--border);font-family:var(--font-mono)}
+.img-row{display:flex;gap:12px;margin:18px 0}
+.img-row .img-wrap{flex:1;margin:0}
+
+/* Highlight Block */
+.hl-block{
+  background:var(--hl-accent-bg);border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0;padding:18px 22px;margin:18px 0;
+  font-size:24px;line-height:1.85;color:var(--text);
+}
 .hl-block.hl-green{border-left-color:var(--accent2);background:var(--hl-green-bg)}
+.hl-block.hl-blue{border-left-color:var(--accent3);background:var(--hl-blue-bg)}
+.hl-block.hl-purple{border-left-color:var(--accent4);background:var(--hl-purple-bg)}
+
+/* Flow Row */
 .flow-row{display:flex;align-items:stretch;gap:12px;margin:18px 0}
-.flow-node{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px 20px;text-align:center;box-shadow:var(--shadow);flex:1}
+.flow-node{
+  background:var(--card);border:1px solid var(--border);border-radius:10px;
+  padding:18px 20px;text-align:center;box-shadow:var(--shadow);flex:1;
+}
 .flow-node .fn-title{font-size:26px;font-weight:600;margin-bottom:4px}
 .flow-node .fn-desc{font-size:22px;color:var(--muted);line-height:1.5}
-.flow-arrow{color:var(--light);font-size:34px;flex-shrink:0;display:flex;align-items:center}
+.flow-arrow{color:var(--light);font-size:34px;flex-shrink:0}
+
+/* Compare */
 .compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
 .compare-col{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:22px 24px;box-shadow:var(--shadow)}
 .compare-col h4{font-size:26px;font-weight:600;margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid var(--border)}
@@ -63,22 +216,169 @@ body::before{content:'';position:fixed;top:0;left:0;bottom:0;width:4px;z-index:1
 .compare-item{font-size:24px;color:var(--muted);padding:5px 0;display:flex;align-items:flex-start;gap:7px}
 .compare-item .ci-x{color:var(--accent);font-weight:700;font-size:26px}
 .compare-item .ci-ok{color:var(--accent2);font-weight:700;font-size:26px}
+
+/* Pitfall */
 .pitfall{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin-bottom:14px;box-shadow:var(--shadow);border-left:3px solid var(--accent)}
 .pitfall-title{font-size:26px;font-weight:600;color:var(--accent);margin-bottom:5px}
 .pitfall-body{font-size:24px;color:var(--muted);line-height:1.8}
 .pitfall-body strong{color:var(--text)}
-.conclusion-bar{background:var(--tag-bg);border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:18px 24px;margin:18px 0;display:flex;align-items:center;gap:14px}
+
+/* Cost Table */
+.cost-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:24px}
+.cost-table th{background:var(--tag-bg);padding:12px 16px;text-align:left;font-weight:600;color:var(--text);border-bottom:1px solid var(--border)}
+.cost-table td{padding:12px 16px;border-bottom:1px solid var(--border);color:var(--muted)}
+.cost-table .highlight-row td{color:var(--accent2);font-weight:600}
+
+/* Transform Block */
+.transform-block{margin-bottom:32px}
+.transform-before{
+  background:var(--card);border:1px solid var(--border);border-radius:10px;
+  padding:20px 24px;box-shadow:var(--shadow);
+}
+.transform-before .tf-label{
+  font-size:22px;font-weight:500;color:var(--light);margin-bottom:10px;
+  display:flex;align-items:center;gap:7px;
+}
+.transform-before .tf-label::before{
+  content:'';display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--light);
+}
+.transform-before .tf-prompt{
+  font-size:26px;color:var(--muted);line-height:1.6;
+}
+.transform-pivot{
+  text-align:center;padding:12px 0;font-size:22px;color:var(--accent2);font-weight:500;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+}
+.transform-pivot::before,.transform-pivot::after{
+  content:'';display:block;width:50px;height:0;border-top:1px dashed var(--border);
+}
+.transform-after{
+  background:var(--hl-green-bg);border:1px solid var(--accent2);border-radius:10px;
+  padding:20px 24px;box-shadow:var(--shadow);
+}
+.transform-after .tf-label{
+  font-size:22px;font-weight:500;color:var(--accent2);margin-bottom:12px;
+  display:flex;align-items:center;gap:7px;
+}
+.transform-after .tf-label::before{
+  content:'';display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent2);
+}
+.transform-after .tf-prompt{
+  font-size:26px;color:var(--text);line-height:1.85;margin-bottom:12px;
+}
+.transform-after .tf-prompt strong{color:var(--accent2);font-weight:600}
+.transform-after .tf-tags{
+  display:flex;gap:9px;flex-wrap:wrap;padding-top:10px;border-top:1px dashed var(--border);
+}
+.transform-after .tf-tag{
+  font-size:22px;color:var(--accent2);background:var(--param-green-val-bg);
+  padding:4px 12px;border-radius:5px;font-weight:500;
+}
+
+/* Terminal */
+.terminal{background:var(--term-bg);border:1px solid var(--term-bar);border-radius:10px;margin:16px 0;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+.terminal .t-bar{background:var(--term-bar);padding:8px 14px;display:flex;align-items:center;gap:6px}
+.terminal .t-bar .t-dot{width:12px;height:12px;border-radius:50%}
+.terminal .t-bar .t-dot:nth-child(1){background:#FF5F57}
+.terminal .t-bar .t-dot:nth-child(2){background:#FFBD2E}
+.terminal .t-bar .t-dot:nth-child(3){background:#28C840}
+.terminal .t-bar .t-title{color:var(--light);font-size:16px;font-family:var(--font-mono);margin-left:auto;padding-right:8px;opacity:0.7}
+.terminal .t-content{padding:18px 22px;font-family:var(--font-mono);font-size:20px;line-height:1.7;color:var(--term-text)}
+.terminal .t-content .t-g{color:var(--term-green)}
+.terminal .t-content .t-m{color:var(--term-comment)}
+.terminal .t-content .t-b{color:var(--term-blue)}
+.terminal .t-content .t-o{color:var(--term-orange)}
+.terminal .t-content .t-r{color:var(--term-red)}
+
+/* Decision Tree */
+.decision-tree{margin:20px 0}
+.dt-question{
+  text-align:center;background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:22px 32px;box-shadow:var(--shadow);
+  max-width:680px;margin:0 auto 24px;
+}
+.dt-question .dt-q-text{font-family:var(--font-display);font-size:34px;font-weight:700;color:var(--text);line-height:1.4}
+.dt-connector{position:relative;height:40px}
+.dt-connector::before{
+  content:'';position:absolute;top:0;left:50%;width:2px;height:20px;background:var(--border);transform:translateX(-0.5px);
+}
+.dt-connector::after{
+  content:'';position:absolute;top:20px;left:calc(25% + 14px);right:calc(25% + 14px);height:2px;background:var(--border);
+}
+.dt-fork{display:flex}
+.dt-branch{flex:1;display:flex;flex-direction:column;align-items:center}
+.dt-branch-left{padding-right:24px}
+.dt-branch-right{padding-left:24px}
+.dt-path-label{
+  font-family:var(--font-display);font-size:28px;font-weight:700;text-align:center;
+  margin-bottom:10px;padding:6px 24px;border-radius:8px;display:inline-block;
+}
+.dt-path-cloud{color:var(--accent2);background:var(--dt-cloud-bg)}
+.dt-path-local{color:var(--accent);background:var(--dt-local-bg)}
+.dt-path-card{
+  background:var(--card);border:1px solid var(--border);border-radius:10px;
+  padding:20px 24px;box-shadow:var(--shadow);text-align:center;width:100%;
+}
+.dt-path-card .dt-path-desc{font-size:24px;color:var(--muted);line-height:1.75;margin-bottom:12px}
+.dt-path-card .dt-path-result{padding-top:12px;border-top:1px solid var(--border);font-size:24px;font-weight:600}
+
+/* Scene Tags */
+.scene-tags{margin:14px 0}
+.scene-tags .st-label{font-size:22px;color:var(--light);margin-bottom:8px}
+.scene-tags .st-row{display:flex;flex-wrap:wrap;gap:8px}
+.scene-tag{font-size:24px;font-weight:500;padding:7px 16px;border-radius:18px}
+.scene-tag.st-cloud{color:var(--accent2);background:var(--tag-cloud-bg);border:1px solid var(--tag-cloud-border)}
+.scene-tag.st-local{color:var(--accent);background:var(--tag-local-bg);border:1px solid var(--tag-local-border)}
+.scene-tag.st-use{color:var(--muted);background:var(--tag-bg);border:1px solid var(--border);font-size:22px;padding:5px 14px;border-radius:14px}
+
+/* Parameter Panel */
+.param-panel{margin:16px 0}
+.param-row{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)}
+.param-row:last-child{border-bottom:none}
+.param-row .pr-icon{
+  width:44px;height:44px;border-radius:10px;display:flex;
+  align-items:center;justify-content:center;font-size:26px;flex-shrink:0;
+}
+.pr-icon.pr-accent{background:var(--param-accent-bg)}
+.pr-icon.pr-green{background:var(--param-green-bg)}
+.pr-icon.pr-blue{background:var(--param-blue-bg)}
+.pr-icon.pr-soft{background:var(--tag-bg)}
+.param-row .pr-info{flex:1}
+.param-row .pr-name{font-size:26px;font-weight:600;color:var(--text);margin-bottom:2px}
+.param-row .pr-note{font-size:24px;color:var(--muted);line-height:1.6}
+.param-row .pr-value{font-size:24px;font-weight:600;text-align:center;flex:0 0 auto;padding:6px 16px;border-radius:6px}
+.pr-value.pr-recommend{color:var(--accent2);background:var(--param-green-val-bg)}
+.pr-value.pr-warn{color:var(--accent);background:var(--param-accent-val-bg)}
+.pr-value.pr-info{color:var(--accent3);background:var(--param-blue-val-bg)}
+
+/* Conclusion Bar */
+.conclusion-bar{
+  background:var(--tag-bg);border-left:4px solid var(--accent);
+  border-radius:0 10px 10px 0;padding:18px 24px;margin:18px 0;
+  display:flex;align-items:center;gap:14px;
+}
 .conclusion-bar .cb-icon{font-size:36px;flex-shrink:0;line-height:1}
 .conclusion-bar .cb-text{flex:1;font-size:26px;font-weight:600;color:var(--text);line-height:1.6}
+.conclusion-bar.cb-green{border-left-color:var(--accent2)}
+.conclusion-bar.cb-blue{border-left-color:var(--accent3)}
+
+/* Note Card */
 .note-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:0;margin:16px 0;box-shadow:var(--shadow);overflow:hidden}
 .note-card .nc-header{background:var(--note-header-bg);padding:14px 24px;display:flex;align-items:center;gap:10px}
 .note-card .nc-header .nc-icon{font-size:28px;line-height:1}
 .note-card .nc-header .nc-label{font-size:24px;font-weight:600;color:var(--accent)}
 .note-card .nc-body{padding:18px 24px;font-size:24px;color:var(--text);line-height:1.85}
+
+/* Footer */
+.footer{text-align:center;color:var(--light);font-size:22px;padding-top:28px;border-top:1px solid var(--border);margin-top:40px}
+
+/* Quote Block */
 .quote-block{text-align:center;margin:32px 0}
 .quote-block .q-divider{width:60px;height:1px;background:var(--border);margin:0 auto}
 .quote-block .q-text{font-family:var(--font-display);font-size:40px;font-weight:600;color:var(--text);line-height:1.5;margin:24px 0}
 .quote-block .q-author{font-size:22px;color:var(--muted);margin-top:14px}
+
+/* Checklist */
 .checklist{margin:16px 0}
 .ck-item{display:flex;align-items:flex-start;gap:14px;padding:10px 0}
 .ck-item:first-child{padding-top:0}
@@ -87,15 +387,21 @@ body::before{content:'';position:fixed;top:0;left:0;bottom:0;width:4px;z-index:1
 .ck-box.ck-on{background:var(--accent2);border-color:var(--accent2);display:flex;align-items:center;justify-content:center}
 .ck-box.ck-on::after{content:'✓';color:#fff;font-size:14px;font-weight:700;line-height:1}
 .ck-text{font-size:26px;color:var(--text);line-height:1.7;flex:1}
+
+/* Big Number */
 .big-number{display:flex;align-items:center;gap:24px;margin:24px 0}
 .big-number .bn-num{font-family:var(--font-display);font-size:80px;font-weight:700;color:var(--accent);line-height:1;flex-shrink:0;min-width:120px}
 .big-number .bn-desc{font-size:24px;color:var(--muted);line-height:1.6}
+
+/* Score Card */
 .score-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px 28px;margin-bottom:16px;box-shadow:var(--shadow)}
 .score-card .sc-title{font-size:26px;font-weight:600;color:var(--text);margin-bottom:14px}
 .score-card .sc-stars{display:flex;gap:4px;margin-bottom:12px;font-size:28px;line-height:1}
 .score-card .sc-star{color:var(--border)}
 .score-card .sc-star.sc-on{color:var(--accent)}
 .score-card .sc-desc{font-size:24px;color:var(--muted);line-height:1.6}
+
+/* Chat */
 .chat{margin:18px 0}
 .chat-bubble{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px;max-width:85%}
 .chat-bubble.ch-right{margin-left:auto;flex-direction:row-reverse}
@@ -105,277 +411,517 @@ body::before{content:'';position:fixed;top:0;left:0;bottom:0;width:4px;z-index:1
 .ch-content{padding:14px 20px;border-radius:12px;font-size:24px;line-height:1.65;color:var(--text)}
 .chat-bubble.ch-left .ch-content{background:var(--tag-bg);border-top-left-radius:4px}
 .chat-bubble.ch-right .ch-content{background:var(--hl-accent-bg);border-top-right-radius:4px}
-.footer{text-align:center;color:var(--light);font-size:22px;padding-top:28px;border-top:1px solid var(--border);margin-top:40px}
+
+/* Page Break */
+.page-break{
+  border:none;border-top:2px dashed var(--border);margin:40px 0;
+}
+
+/* 占位图 */
+.placeholder-img{
+  background:linear-gradient(135deg, var(--param-accent-bg) 0%, var(--param-green-bg) 100%);
+  height:180px;display:flex;align-items:center;justify-content:center;
+  font-size:28px;color:var(--muted);font-weight:500;
+}
+.placeholder-img.small{height:100px}
 </style>
 </head>
 <body>
 
-<div class="lib-banner">
-  📖 视觉组件库
-  <span>|</span>
-  <span>修改 <code>config/brand.css</code> 后刷新即可看效果更新</span>
-</div>
-
-<div class="lib-wrapper">
-
-<!-- intro -->
-<div style="padding:40px 56px 32px;border-bottom:1px solid var(--border);margin-bottom:8px;">
-  <p style="font-size:28px;font-weight:700;color:var(--text);margin-bottom:12px;">可用组件一览</p>
-  <p style="font-size:22px;color:var(--muted);line-height:1.8;">本页展示该视觉系统下所有可用的内容组件，共 14 类。AI 排版时从这里选取组合，你也可以在脚本定稿后指定想用哪些组件。</p>
-  <p style="font-size:20px;color:var(--light);margin-top:12px;line-height:1.7;">Section · Card · Steps · Highlight · Flow · Compare · Pitfall · Conclusion · Note · Quote · Checklist · BigNumber · ScoreCard · Chat · Footer</p>
-</div>
-
-<!-- ─── Section 章节标题 ─── -->
-<div class="lib-label">Section · 章节标题</div>
-<div class="lib-section">
-  <div class="section">
-    <h2>为什么内容创作者需要 AI 生产管线</h2>
-    <p class="desc">不是 AI 帮你想内容，而是让你从脚本到切图的整个流程提速三倍。</p>
+<!-- ═══════════ 页面导览 ═══════════ -->
+<div class="page-intro">
+  <h1>🎨 XHS Visual Pipeline · 组件全集</h1>
+  <div class="sub">小红书图文视觉生产工具包 — 所有可用组件一览（v3.1）</div>
+  <div class="meta-grid">
+    <span>🎨 配色: <em>Ocean Blue</em> 海蓝</span>
+    <span>📦 组件数: <em>22</em></span>
+    <span>🔧 版本: <em>v1.1.0</em></span>
   </div>
 </div>
-<div class="lib-divider"></div>
 
-<!-- ─── Card 卡片 ─── -->
-<div class="lib-label">Card · 卡片</div>
-<div class="lib-section">
-  <div class="card">
-    <div class="card-header">
-      <div class="icon c-accent">✦</div>
-      <h3>Claude Code 是什么</h3>
-      <div class="loc loc-green">命令行 AI 工具</div>
-    </div>
-    <div class="card-body">
-      Anthropic 出的终端 AI 编程工具，不需要打开 IDE，直接在命令行里操作整个代码库。对内容创作者的价值在于：能读懂你的整个项目结构，执行批量文件操作，自动化重复任务。
-    </div>
+<!-- ═══════════ Group 1: 封面/章节 ═══════════ -->
+<div class="component-group">
+  <div class="group-title">
+    📐 封面 &amp; 章节结构
+    <span class="badge">Header · Section · Card</span>
   </div>
-  <div class="card" style="margin-top:16px;">
-    <div class="card-header">
-      <div class="icon c-green">△</div>
-      <h3>适合什么人用</h3>
+  <div class="demo-box">
+    <div class="header">
+      <div class="pretitle">AI 工具评测</div>
+      <h1>Claude Code 深度体验</h1>
+      <p class="subtitle">终端原生 AI 编程助手，一个月重度使用报告</p>
     </div>
-    <div class="card-body">
-      有一定技术基础、日常重度使用终端的人。纯内容创作者如果不熟悉命令行，上手成本会比较高。
+    <div class="section">
+      <h2>为什么需要终端原生</h2>
+      <p class="desc">IDE 插件够多了，但终端的场景一直没人做好</p>
+    </div>
+    <div class="section">
+      <h2 class="h-green">墨绿色变体 · 正面结论</h2>
+      <p class="desc">h2 支持四种左边框颜色变体</p>
+    </div>
+    <div class="section">
+      <h2 class="h-blue">钢蓝色变体 · 技术说明</h2>
+    </div>
+    <div class="section">
+      <h2 class="h-purple">雾紫色变体 · 扩展备注</h2>
     </div>
   </div>
 </div>
-<div class="lib-divider"></div>
 
-<!-- ─── Steps 编号步骤 ─── -->
-<div class="lib-label">Steps · 编号步骤</div>
-<div class="lib-section">
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <div>
-        <div class="step-title">安装 Node.js 和 Chrome</div>
-        <div class="step-desc">Node.js 18+ 即可，Chrome 用于 Puppeteer 截图导出，脚本会自动检测路径。</div>
+<!-- ═══════════ Group 2: 卡片 ═══════════ -->
+<div class="component-group">
+  <div class="group-title">
+    🃏 卡片
+    <span class="badge">Card</span>
+  </div>
+  <div class="demo-box">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon c-accent">标</div>
+        <h3>卡片标题 · 主强调色</h3>
+        <div class="loc loc-green">推荐</div>
+      </div>
+      <div class="card-body">
+        卡片用于承载独立信息块。这是正文内容。<strong>加粗强调关键信息</strong>，用样式自然区分层级。
       </div>
     </div>
-    <div class="step">
-      <div class="step-num sn-green">2</div>
-      <div>
-        <div class="step-title">克隆工具包并安装依赖</div>
-        <div class="step-desc">git clone 后在目录内跑 npm install puppeteer-core，约 30 秒完成。</div>
+    <div class="card">
+      <div class="card-header">
+        <div class="icon c-green">✓</div>
+        <h3>卡片标题 · 绿色</h3>
+        <div class="loc loc-blue">技术</div>
+      </div>
+      <div class="card-body">
+        绿色图标 + 蓝色标签的组合，适合正向结论类内容。
       </div>
     </div>
-    <div class="step">
-      <div class="step-num sn-blue">3</div>
-      <div>
-        <div class="step-title">运行 skill，完成初始化</div>
-        <div class="step-desc">告诉 AI「帮我做小红书图文」，首次运行会引导你选配色方案，约 1 分钟搞定。</div>
+    <div class="card">
+      <div class="card-header">
+        <div class="icon c-blue">i</div>
+        <h3>卡片标题 · 钢蓝</h3>
+        <div class="loc loc-purple">备注</div>
+      </div>
+      <div class="card-body">
+        多种图标色和标签色组合，灵活适配不同内容语境。
       </div>
     </div>
   </div>
 </div>
-<div class="lib-divider"></div>
 
-<!-- ─── Highlight Block 高亮块 ─── -->
-<div class="lib-label">Highlight Block · 高亮块</div>
-<div class="lib-section">
-  <div class="hl-block">
-    核心判断：AI 工具的价值不在于替代创作，而在于消灭生产管线里的重复动作——模板复制、格式调整、批量导出这些。
+<!-- ═══════════ Group 3: 步骤/流程 ═══════════ -->
+<div class="component-group">
+  <div class="group-title">
+    🔢 编号步骤
+    <span class="badge">Steps</span>
   </div>
-  <div class="hl-block hl-green" style="margin-top:16px;">
-    可以这样用：脚本由你来写，视觉排版和切图交给 AI 自动完成，最终发布前再做一次人工检查。
-  </div>
-</div>
-<div class="lib-divider"></div>
-
-<!-- ─── Flow Row 横向流程 ─── -->
-<div class="lib-label">Flow Row · 横向流程</div>
-<div class="lib-section">
-  <div class="flow-row">
-    <div class="flow-node" style="border-top:3px solid var(--accent)">
-      <div class="fn-title" style="color:var(--accent)">写脚本</div>
-      <div class="fn-desc">用户定稿文字</div>
-    </div>
-    <div class="flow-arrow">+</div>
-    <div class="flow-node" style="border-top:3px solid var(--accent2)">
-      <div class="fn-title" style="color:var(--accent2)">AI 排版</div>
-      <div class="fn-desc">自动选组件组合</div>
-    </div>
-    <div class="flow-arrow">+</div>
-    <div class="flow-node" style="border-top:3px solid var(--accent3)">
-      <div class="fn-title" style="color:var(--accent3)">切图导出</div>
-      <div class="fn-desc">Puppeteer 截图</div>
-    </div>
-  </div>
-</div>
-<div class="lib-divider"></div>
-
-<!-- ─── Compare Grid 前后对比 ─── -->
-<div class="lib-label">Compare Grid · 前后对比</div>
-<div class="lib-section">
-  <div class="compare">
-    <div class="compare-col col-old">
-      <h4>以前</h4>
-      <div class="compare-item"><span class="ci-x">✗</span> 每次做图都从头来——找模板、调色、对齐、截图</div>
-      <div class="compare-item"><span class="ci-x">✗</span> 一套流程两小时起</div>
-    </div>
-    <div class="compare-col col-new">
-      <h4>现在</h4>
-      <div class="compare-item"><span class="ci-ok">✓</span> 写完脚本，AI 排版 + 切图全自动</div>
-      <div class="compare-item"><span class="ci-ok">✓</span> 20 分钟出一套完整图文</div>
+  <div class="demo-box">
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">环境检查</div>
+          <div class="step-desc">确认 Puppeteer 和模板文件已就绪</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num sn-green">2</div>
+        <div>
+          <div class="step-title">配置品牌色</div>
+          <div class="step-desc">通过可视化预览页选择或自定义配色</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num sn-blue">3</div>
+        <div>
+          <div class="step-title">生成封面</div>
+          <div class="step-desc">从内容提炼引导语、主标题、副标题</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num sn-purple">4</div>
+        <div>
+          <div class="step-title">排版出图</div>
+          <div class="step-desc">选择组件组合，填入内容，导出切片</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-<div class="lib-divider"></div>
 
-<!-- ─── Pitfall 常见坑 ─── -->
-<div class="lib-label">Pitfall · 常见坑</div>
-<div class="lib-section">
-  <div class="pitfall">
-    <div class="pitfall-title">① 别把 AI 当写手</div>
-    <div class="pitfall-body">让 AI 直接生成脚本发布，读者一眼能看出来。AI 的价值在流程自动化，不在内容替代。<strong>脚本还是得自己写</strong>，个人经历和观点是没法批量生产的东西。</div>
+<!-- ═══════════ Group 4: 高亮块 ═══════════ -->
+<div class="component-group">
+  <div class="group-title">
+    💡 高亮块
+    <span class="badge">Highlight Block</span>
   </div>
-</div>
-<div class="lib-divider"></div>
-
-<!-- ─── Conclusion Bar 结论条 ─── -->
-<div class="lib-label">Conclusion Bar · 结论条</div>
-<div class="lib-section">
-  <div class="conclusion-bar">
-    <span class="cb-icon">✅</span>
-    <span class="cb-text">有内容 + 有生产系统，才是长期做小红书的正确姿势</span>
-  </div>
-</div>
-<div class="lib-divider"></div>
-
-<!-- ─── Note Card 注意卡 ─── -->
-<div class="lib-label">Note Card · 注意卡</div>
-<div class="lib-section">
-  <div class="note-card">
-    <div class="nc-header">
-      <span class="nc-icon">📌</span>
-      <span class="nc-label">使用前确认</span>
+  <div class="demo-box">
+    <div class="hl-block">
+      默认（accent）左边框。用于核心观点、重要结论。
     </div>
-    <div class="nc-body">首次运行需要网络加载 Google Fonts（如网络不通，字体会降级为系统字体，不影响排版结构）。导出截图需要本地安装 Chrome 或 Chromium。</div>
-  </div>
-</div>
-<div class="lib-divider"></div>
-
-<!-- ─── Quote Block 金句块 ─── -->
-<div class="lib-label">Quote Block · 金句块</div>
-<div class="lib-section">
-  <div class="quote-block">
-    <div class="q-divider"></div>
-    <div class="q-text">AI 改变的不是你说什么，而是你多快能把它变成一张图</div>
-    <div class="q-divider"></div>
-    <div class="q-author">— 个人观察</div>
-  </div>
-</div>
-<div class="lib-divider"></div>
-
-<!-- ─── Checklist 清单 ─── -->
-<div class="lib-label">Checklist · 勾选清单</div>
-<div class="lib-section">
-  <div class="checklist">
-    <div class="ck-item">
-      <div class="ck-box ck-on"></div>
-      <div class="ck-text">安装 Node.js 18+</div>
+    <div class="hl-block hl-green">
+      墨绿左边框。用于正面结论、正确做法、成功经验。
     </div>
-    <div class="ck-item">
-      <div class="ck-box ck-on"></div>
-      <div class="ck-text">确认 Chrome 已安装</div>
+    <div class="hl-block hl-blue">
+      钢蓝左边框。用于技术说明、补充信息、背景介绍。
     </div>
-    <div class="ck-item">
-      <div class="ck-box ck-on"></div>
-      <div class="ck-text">克隆工具包并 npm install</div>
-    </div>
-    <div class="ck-item">
-      <div class="ck-box"></div>
-      <div class="ck-text">完成首次初始化配色</div>
-    </div>
-    <div class="ck-item">
-      <div class="ck-box"></div>
-      <div class="ck-text">用自己的内容跑一次完整流程</div>
+    <div class="hl-block hl-purple">
+      雾紫左边框。用于扩展备注、延伸阅读、个人体会。
     </div>
   </div>
 </div>
-<div class="lib-divider"></div>
 
-<!-- ─── Big Number 大数字强调 ─── -->
-<div class="lib-label">Big Number · 大数字强调</div>
-<div class="lib-section">
-  <div class="big-number">
-    <div class="bn-num">3×</div>
-    <div class="bn-desc">接入 AI 生产管线后，从脚本定稿到切图交付的时间缩短了三倍</div>
+<!-- ═══════════ Group 5: 横向流程 ═══════════ -->
+<div class="component-group">
+  <div class="group-title">
+    ➡️ 横向流程
+    <span class="badge">Flow Row</span>
   </div>
-</div>
-<div class="lib-divider"></div>
-
-<!-- ─── Score Card 评分卡 ─── -->
-<div class="lib-label">Score Card · 评分卡</div>
-<div class="lib-section">
-  <div class="score-card">
-    <div class="sc-title">上手难度</div>
-    <div class="sc-stars">
-      <span class="sc-star sc-on">★</span><span class="sc-star sc-on">★</span><span class="sc-star sc-on">★</span><span class="sc-star">★</span><span class="sc-star">★</span>
-    </div>
-    <div class="sc-desc">需要基础的命令行操作能力，完全零基础会有门槛</div>
-  </div>
-  <div class="score-card">
-    <div class="sc-title">输出稳定性</div>
-    <div class="sc-stars">
-      <span class="sc-star sc-on">★</span><span class="sc-star sc-on">★</span><span class="sc-star sc-on">★</span><span class="sc-star sc-on">★</span><span class="sc-star">★</span>
-    </div>
-    <div class="sc-desc">视觉系统固定，AI 排版判断偶有偏差，复查后可修正</div>
-  </div>
-</div>
-<div class="lib-divider"></div>
-
-<!-- ─── Chat 对话气泡 ─── -->
-<div class="lib-label">Chat · 对话气泡</div>
-<div class="lib-section">
-  <div class="chat">
-    <div class="chat-bubble ch-left">
-      <div class="ch-avatar">🤔</div>
-      <div class="ch-content">我不懂代码，能用这个工具吗？</div>
-    </div>
-    <div class="chat-bubble ch-right">
-      <div class="ch-avatar">💡</div>
-      <div class="ch-content">可以用，但有门槛。需要会基础的命令行操作和文件路径概念。如果你完全没接触过终端，建议先跟着 README 跑一遍，能跑通就没问题。</div>
-    </div>
-    <div class="chat-bubble ch-left">
-      <div class="ch-avatar">🤔</div>
-      <div class="ch-content">导出图片的尺寸可以改吗？</div>
-    </div>
-    <div class="chat-bubble ch-right">
-      <div class="ch-avatar">💡</div>
-      <div class="ch-content">可以。export-slice.js 的第三个参数是切片高度，默认 1440，改成你需要的数字就行。宽度固定 1080px，符合小红书标准。</div>
+  <div class="demo-box">
+    <div class="flow-row">
+      <div class="flow-node" style="border-top:3px solid var(--accent)">
+        <div class="fn-title" style="color:var(--accent)">内容输入</div>
+        <div class="fn-desc">用户提供定稿文字</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node" style="border-top:3px solid var(--accent2)">
+        <div class="fn-title" style="color:var(--accent2)">AI 排版</div>
+        <div class="fn-desc">自动匹配组件组合</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node" style="border-top:3px solid var(--accent3)">
+        <div class="fn-title" style="color:var(--accent3)">导出切片</div>
+        <div class="fn-desc">PNG 图片就绪</div>
+      </div>
     </div>
   </div>
 </div>
-<div class="lib-divider"></div>
 
-<!-- ─── Footer 页脚 ─── -->
-<div class="lib-label">Footer · 页脚</div>
-<div class="lib-section">
-  <div class="footer">
-    @你的账号 · 持续更新
+<!-- ═══════════ Group 6: 对比/转换 ═══════════ -->
+<div class="component-group">
+  <div class="group-title">
+    ⚖️ 前后对比 &amp; 转换
+    <span class="badge">Compare · Transform</span>
+  </div>
+  <div class="demo-box">
+    <div class="compare">
+      <div class="compare-col col-old">
+        <h4>以前</h4>
+        <div class="compare-item"><span class="ci-x">✗</span> 手动打开 Photoshop 排版</div>
+        <div class="compare-item"><span class="ci-x">✗</span> 每次要 30 分钟以上</div>
+        <div class="compare-item"><span class="ci-x">✗</span> 配色靠感觉，不稳定</div>
+      </div>
+      <div class="compare-col col-new">
+        <h4>现在</h4>
+        <div class="compare-item"><span class="ci-ok">✓</span> 文字到图，AI 一键排版</div>
+        <div class="compare-item"><span class="ci-ok">✓</span> 5 分钟完成全流程</div>
+        <div class="compare-item"><span class="ci-ok">✓</span> 统一 Token 体系，色彩一致</div>
+      </div>
+    </div>
+
+    <hr class="page-break">
+
+    <div class="transform-block">
+      <div class="transform-before">
+        <div class="tf-label">转换前</div>
+        <div class="tf-prompt">一段冗长的文字描述，没有结构化的排版，读者需要自己从中提取关键信息，阅读成本很高。</div>
+      </div>
+      <div class="transform-pivot">结构梳理 + 视觉分层</div>
+      <div class="transform-after">
+        <div class="tf-label">转换后</div>
+        <div class="tf-prompt">分段清晰的图文排版。<strong>关键数据加粗显示</strong>，一目了然。</div>
+        <div class="tf-tags">
+          <span class="tf-tag">结构清晰</span>
+          <span class="tf-tag">重点突出</span>
+          <span class="tf-tag">阅读友好</span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
+<!-- ═══════════ Group 7: 金句/结论 ═══════════ -->
+<div class="component-group">
+  <div class="group-title">
+    ✨ 金句 &amp; 结论条
+    <span class="badge">Quote · Conclusion Bar</span>
+  </div>
+  <div class="demo-box">
+    <div class="quote-block">
+      <div class="q-divider"></div>
+      <div class="q-text">真正重要的不是工具本身，<br>而是你用它解决了什么问题。</div>
+      <div class="q-divider"></div>
+      <div class="q-author">—— Claude Code 用户的真实感受</div>
+    </div>
+
+    <div class="conclusion-bar">
+      <span class="cb-icon">✅</span>
+      <span class="cb-text">默认结论条：适合高频使用的工作流，强烈推荐</span>
+    </div>
+    <div class="conclusion-bar cb-green">
+      <span class="cb-icon">🟢</span>
+      <span class="cb-text">绿色结论条：正向确认，方案可行</span>
+    </div>
+    <div class="conclusion-bar cb-blue">
+      <span class="cb-icon">ℹ️</span>
+      <span class="cb-text">蓝色结论条：信息提示，补充说明</span>
+    </div>
+  </div>
 </div>
+
+<!-- ═══════════ Group 8: 坑/表格/大数字 ═══════════ -->
+<div class="component-group">
+  <div class="group-title">
+    🕳️ 常见坑 &amp; 表格 &amp; 大数字
+    <span class="badge">Pitfall · Cost Table · Big Number</span>
+  </div>
+  <div class="demo-box">
+    <div class="pitfall">
+      <div class="pitfall-title">① 路径问题 → Node.js 找不到模板文件</div>
+      <div class="pitfall-body">复制 base.html 后，CSS 引入路径仍是相对路径。需要修改为<strong>绝对路径</strong>才能正确加载样式。</div>
+    </div>
+    <div class="pitfall">
+      <div class="pitfall-title">② 字体未加载 → 中文显示异常</div>
+      <div class="pitfall-body">需要稳定的网络环境加载 Google Fonts。<strong>建议预下载或使用 CDN 缓存</strong>。</div>
+    </div>
+
+    <table class="cost-table">
+      <tr><th>方案</th><th>费用</th><th>需要</th></tr>
+      <tr><td>手动 PS 排版</td><td>30分钟/篇</td><td>PS 技能 + 素材库</td></tr>
+      <tr><td>Canva 模板</td><td>10分钟/篇</td><td>会员订阅</td></tr>
+      <tr class="highlight-row"><td>本工具包</td><td>5分钟/篇</td><td>Node.js + 一次配置</td></tr>
+    </table>
+
+    <div class="big-number">
+      <div class="bn-num">3×</div>
+      <div class="bn-desc">用上 AI 编程工具后，我的内容产出效率提升了三倍</div>
+    </div>
+    <div class="big-number">
+      <div class="bn-num">100+</div>
+      <div class="bn-desc">累计产出的小红书笔记数量，cover 到导出全自动化</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ Group 9: 评分/Checklist/参数 ═══════════ -->
+<div class="component-group">
+  <div class="group-title">
+    📊 评分卡 &amp; Checklist &amp; 参数面板
+    <span class="badge">Score Card · Checklist · Parameter Panel</span>
+  </div>
+  <div class="demo-box">
+    <div class="score-card">
+      <div class="sc-title">终端集成体验</div>
+      <div class="sc-stars">
+        <span class="sc-star sc-on">★</span>
+        <span class="sc-star sc-on">★</span>
+        <span class="sc-star sc-on">★</span>
+        <span class="sc-star sc-on">★</span>
+        <span class="sc-star">★</span>
+      </div>
+      <div class="sc-desc">不需要切换 IDE，但 Windows 下偶尔有路径转义问题</div>
+    </div>
+
+    <div class="checklist">
+      <div class="ck-item">
+        <div class="ck-box ck-on"></div>
+        <div class="ck-text">已安装 Node.js 和 Puppeteer</div>
+      </div>
+      <div class="ck-item">
+        <div class="ck-box ck-on"></div>
+        <div class="ck-text">已完成品牌配色配置</div>
+      </div>
+      <div class="ck-item">
+        <div class="ck-box"></div>
+        <div class="ck-text">待生成第一篇内容的封面</div>
+      </div>
+    </div>
+
+    <div class="param-panel">
+      <div class="param-row">
+        <div class="pr-icon pr-soft">👁️</div>
+        <div class="pr-info">
+          <div class="pr-name">切片高度</div>
+          <div class="pr-note">每张导出的 PNG 高度，默认 1440px</div>
+        </div>
+        <div class="pr-value pr-recommend">1440px</div>
+      </div>
+      <div class="param-row">
+        <div class="pr-icon pr-accent">🎮</div>
+        <div class="pr-info">
+          <div class="pr-name">Puppeteer 内存</div>
+        </div>
+        <div class="pr-value pr-warn">32G 起步</div>
+      </div>
+      <div class="param-row">
+        <div class="pr-icon pr-green">📄</div>
+        <div class="pr-info">
+          <div class="pr-name">输出格式</div>
+          <div class="pr-note">默认 PNG，支持自定义</div>
+        </div>
+        <div class="pr-value pr-info">PNG</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ Group 10: 对话气泡 ═══════════ -->
+<div class="component-group">
+  <div class="group-title">
+    💬 对话气泡
+    <span class="badge">Chat</span>
+  </div>
+  <div class="demo-box">
+    <div class="chat">
+      <div class="chat-bubble ch-left">
+        <div class="ch-avatar">🤔</div>
+        <div class="ch-content">这个工具和 Cursor 有什么区别？</div>
+      </div>
+      <div class="chat-bubble ch-right">
+        <div class="ch-avatar">💡</div>
+        <div class="ch-content">最大区别是终端原生——不需要打开 IDE 就能用，而且对整个代码库的理解更深。</div>
+      </div>
+      <div class="chat-bubble ch-left">
+        <div class="ch-avatar">🤔</div>
+        <div class="ch-content">价格呢？适合个人用吗？</div>
+      </div>
+      <div class="chat-bubble ch-right">
+        <div class="ch-avatar">💡</div>
+        <div class="ch-content">Pro 版 20 美元/月。如果你是项目级开发、日常重度用终端，值；偶尔写点脚本的话偏贵。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ Group 11: 决策树/场景标签 ═══════════ -->
+<div class="component-group">
+  <div class="group-title">
+    🌳 决策树 &amp; 场景标签
+    <span class="badge">Decision Tree · Scene Tags</span>
+  </div>
+  <div class="demo-box">
+    <div class="decision-tree">
+      <div class="dt-question">
+        <div class="dt-q-text">用哪个 AI 编程工具？</div>
+      </div>
+      <div class="dt-connector"></div>
+      <div class="dt-fork">
+        <div class="dt-branch dt-branch-left">
+          <div class="dt-path-label dt-path-cloud">☁️ 云端优先</div>
+          <div class="dt-path-card">
+            <div class="dt-path-desc">需要协作、跨设备、浏览器即可使用</div>
+            <div class="dt-path-result" style="color:var(--accent2);">推荐：Cursor</div>
+          </div>
+        </div>
+        <div class="dt-branch dt-branch-right">
+          <div class="dt-path-label dt-path-local">💻 终端原生</div>
+          <div class="dt-path-card">
+            <div class="dt-path-desc">深度开发、终端重度使用、本地优先</div>
+            <div class="dt-path-result" style="color:var(--accent);">推荐：Claude Code</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scene-tags">
+      <div class="st-label">适用场景</div>
+      <div class="st-row">
+        <span class="scene-tag st-cloud">云端协作</span>
+        <span class="scene-tag st-cloud">跨设备同步</span>
+        <span class="scene-tag st-cloud">快速原型</span>
+      </div>
+      <div class="st-label" style="margin-top:10px;">本地场景</div>
+      <div class="st-row">
+        <span class="scene-tag st-local">终端重度</span>
+        <span class="scene-tag st-local">项目开发</span>
+        <span class="scene-tag st-local">代码审查</span>
+      </div>
+      <div class="st-label" style="margin-top:10px;">其他</div>
+      <div class="st-row">
+        <span class="scene-tag st-use">初次尝试</span>
+        <span class="scene-tag st-use">轻度脚本</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ Group 12: 注意卡/终端 ═══════════ -->
+<div class="component-group">
+  <div class="group-title">
+    📌 注意卡 &amp; 终端窗口
+    <span class="badge">Note Card · Terminal</span>
+  </div>
+  <div class="demo-box">
+    <div class="note-card">
+      <div class="nc-header">
+        <span class="nc-icon">💡</span>
+        <span class="nc-label">关于路径配置的提醒</span>
+      </div>
+      <div class="nc-body">
+        第一次使用前，请将 base.html 和 cover.html 中的 CSS 引入路径从相对路径 <code>../</code> 替换为<strong>工具包绝对路径</strong>，否则页面将无法正确加载样式。
+      </div>
+    </div>
+
+    <div class="terminal">
+      <div class="t-bar">
+        <span class="t-dot"></span>
+        <span class="t-dot"></span>
+        <span class="t-dot"></span>
+        <span class="t-title">bash — xhs-maker</span>
+      </div>
+      <div class="t-content">
+        <span class="t-g">$</span> node scripts/export-slice.js demo.html 产出 1440<br>
+        <span class="t-m"># 正在渲染第 1 页...</span><br>
+        <span class="t-m"># 正在渲染第 2 页...</span><br>
+        <span class="t-b">✓</span> 导出完成！共 <span class="t-o">3</span> 张切片<br>
+        <span class="t-r">✗ Error:</span> 未找到 page-break，已作为单页处理
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ Group 13: 图片布局 ═══════════ -->
+<div class="component-group">
+  <div class="group-title">
+    🖼️ 图片布局
+    <span class="badge">Image · Image Row</span>
+  </div>
+  <div class="demo-box">
+    <div class="img-wrap">
+      <div class="placeholder-img">
+        📸 单图占位 · 实际使用中放截图/素材
+      </div>
+      <div class="img-caption">图1: Claude Code 终端界面 · 来源: 官方文档</div>
+    </div>
+
+    <div class="img-row">
+      <div class="img-wrap">
+        <div class="placeholder-img small">
+          📸 图 A
+        </div>
+        <div class="img-caption">配置前</div>
+      </div>
+      <div class="img-wrap">
+        <div class="placeholder-img small">
+          📸 图 B
+        </div>
+        <div class="img-caption">配置后</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 页脚 ═══════════ -->
+<div class="component-group">
+  <div class="group-title">
+    📝 页脚
+    <span class="badge">Footer</span>
+  </div>
+  <div class="demo-box">
+    <div class="footer">
+      Leo 的工具箱 · 有问题评论区说 · 更多内容持续更新
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

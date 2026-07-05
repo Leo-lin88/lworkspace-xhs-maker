@@ -76,15 +76,15 @@ version: 1.1.0
   3. `base.html` 和 `cover.html` 的主题引用保持 `presets/warm-copper.css`（作为其余变量的基础）
   4. 继续第三步
 
-**第三步：生成组件库参考文件**
+**第三步：确认组件库参考文件**
 
-将 `visual-library.html` 的第二行 CSS 引用更新为与 `base.html` 相同的路径，保存文件。
+确认 `visual-library.html` 已就绪（自包含 HTML，内置 Ocean Blue 海蓝色系展示全部 22 个组件）。
 
 然后告知用户两个文件的用途：
 
 > 配置完成。两个参考文件供你后续使用：
 > - 配色预览：`file:///[工具包路径]/preset-preview.html`（选色时参考）
-> - 组件库：`file:///[工具包路径]/visual-library.html`（查看所有组件效果，改 brand.css 后刷新即可看变化）
+> - 组件库：`file:///[工具包路径]/visual-library.html`（自包含设计，直接打开即查看所有组件效果）
 
 #### 已配置：直接进入内容流程
 
