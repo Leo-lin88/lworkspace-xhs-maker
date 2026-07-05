@@ -1,0 +1,16 @@
+/* 林绿 · 暖白底 + 墨绿强调 · 适合健康/成长/效率类内容 */
+:root {
+  --bg: #F5F7F0; --card: #FFFFFF; --border: #C8D8C0; --tag-bg: #E8F0E0;
+  --text: #1C2E1C; --muted: #5A7A5A; --light: #8AAA8A;
+  --accent: #2D6A4F; --accent2: #40916C; --accent3: #74C69D; --accent4: #B7E4C7;
+  --hl-accent-bg: rgba(45,106,79,0.04); --hl-green-bg: rgba(64,145,108,0.04);
+  --hl-blue-bg: rgba(116,198,157,0.04); --hl-purple-bg: rgba(183,228,199,0.04);
+  --tag-cloud-bg: rgba(64,145,108,0.06); --tag-cloud-border: rgba(64,145,108,0.15);
+  --tag-local-bg: rgba(45,106,79,0.05); --tag-local-border: rgba(45,106,79,0.12);
+  --param-accent-bg: rgba(45,106,79,0.08); --param-green-bg: rgba(64,145,108,0.08);
+  --param-blue-bg: rgba(116,198,157,0.08);
+  --param-accent-val-bg: rgba(45,106,79,0.05); --param-green-val-bg: rgba(64,145,108,0.06);
+  --param-blue-val-bg: rgba(116,198,157,0.06); --param-purple-val-bg: rgba(183,228,199,0.06);
+  --note-header-bg: rgba(45,106,79,0.05);
+  --dt-cloud-bg: rgba(64,145,108,0.08); --dt-local-bg: rgba(45,106,79,0.06);
+}

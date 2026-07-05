@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>XHS Visual Pipeline · 视觉组件库</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- CSS 加载顺序：tokens → preset → brand（最高优先级） -->
+<link rel="stylesheet" href="./templates/tokens.css">
+<link rel="stylesheet" href="./presets/warm-copper.css"><!-- AI 初始化时替换为用户选定的 preset --><link rel="stylesheet" href="./config/brand.css">
+<style>
+/* visual-library 专属：组件容器 & 标签 */
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.8;-webkit-font-smoothing:antialiased}
+.lib-wrapper{width:1080px;margin:0 auto;padding:48px 0 80px}
+.lib-label{color:var(--light);font-size:20px;font-weight:500;margin:0 56px 10px;letter-spacing:0.04em}
+.lib-section{margin-bottom:48px;padding:0 56px}
+.lib-divider{border:none;border-top:1px dashed var(--border);margin:0 56px 40px}
+/* banner */
+.lib-banner{background:var(--text);color:var(--bg);padding:14px 56px;font-size:20px;position:sticky;top:0;z-index:999;display:flex;align-items:center;gap:14px}
+.lib-banner span{opacity:0.65}
+.lib-banner code{background:rgba(255,255,255,0.1);padding:2px 8px;border-radius:4px;font-family:var(--font-mono);font-size:18px}
+
+/* 以下 CSS 从 base.html 同步，确保组件库独立渲染正确 */
+body::before{content:'';position:fixed;top:0;left:0;bottom:0;width:4px;z-index:10;background:linear-gradient(to bottom,var(--accent),var(--accent2),var(--accent3))}
+.header{margin-bottom:50px;padding-bottom:32px;border-bottom:1px solid var(--border)}
+.header .pretitle{font-size:24px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.header h1{font-family:var(--font-display);font-size:52px;font-weight:700;color:var(--text);margin-bottom:10px}
+.header .subtitle{font-size:26px;color:var(--muted);line-height:1.6}
+.section{margin-bottom:44px}
+.section h2{font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--text);margin-bottom:6px;padding-left:18px;border-left:3px solid var(--accent)}
+.section h2.h-green{border-left-color:var(--accent2)}
+.section .desc{font-size:24px;color:var(--muted);margin-bottom:20px;padding-left:22px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px 28px;margin-bottom:16px;box-shadow:var(--shadow)}
+.card-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.card-header .icon{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#fff;flex-shrink:0}
+.icon.c-accent{background:var(--accent)}
+.icon.c-green{background:var(--accent2)}
+.card-header h3{font-size:28px;font-weight:600}
+.card-header .loc{font-size:22px;font-weight:500;padding:4px 14px;border-radius:6px;margin-left:auto;flex-shrink:0}
+.loc.loc-green{color:var(--accent2);background:var(--param-green-val-bg)}
+.card-body{font-size:26px;color:var(--muted);line-height:1.85}
+.card-body strong{color:var(--text);font-weight:600}
+.steps{margin:18px 0}
+.step{display:flex;gap:18px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--border)}
+.step:last-child{border-bottom:none}
+.step-num{width:40px;height:40px;border-radius:50%;background:var(--accent);color:#fff;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-num.sn-green{background:var(--accent2)}
+.step-num.sn-blue{background:var(--accent3)}
+.step-title{font-size:26px;font-weight:600;color:var(--text);margin-bottom:3px}
+.step-desc{font-size:24px;color:var(--muted);line-height:1.7}
+.hl-block{background:var(--hl-accent-bg);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:18px 22px;margin:18px 0;font-size:24px;line-height:1.85;color:var(--text)}
+.hl-block.hl-green{border-left-color:var(--accent2);background:var(--hl-green-bg)}
+.flow-row{display:flex;align-items:stretch;gap:12px;margin:18px 0}
+.flow-node{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px 20px;text-align:center;box-shadow:var(--shadow);flex:1}
+.flow-node .fn-title{font-size:26px;font-weight:600;margin-bottom:4px}
+.flow-node .fn-desc{font-size:22px;color:var(--muted);line-height:1.5}
+.flow-arrow{color:var(--light);font-size:34px;flex-shrink:0;display:flex;align-items:center}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.compare-col{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:22px 24px;box-shadow:var(--shadow)}
+.compare-col h4{font-size:26px;font-weight:600;margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid var(--border)}
+.compare-col.col-old h4{color:var(--accent3)}
+.compare-col.col-new h4{color:var(--accent2)}
+.compare-item{font-size:24px;color:var(--muted);padding:5px 0;display:flex;align-items:flex-start;gap:7px}
+.compare-item .ci-x{color:var(--accent);font-weight:700;font-size:26px}
+.compare-item .ci-ok{color:var(--accent2);font-weight:700;font-size:26px}
+.pitfall{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin-bottom:14px;box-shadow:var(--shadow);border-left:3px solid var(--accent)}
+.pitfall-title{font-size:26px;font-weight:600;color:var(--accent);margin-bottom:5px}
+.pitfall-body{font-size:24px;color:var(--muted);line-height:1.8}
+.pitfall-body strong{color:var(--text)}
+.conclusion-bar{background:var(--tag-bg);border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:18px 24px;margin:18px 0;display:flex;align-items:center;gap:14px}
+.conclusion-bar .cb-icon{font-size:36px;flex-shrink:0;line-height:1}
+.conclusion-bar .cb-text{flex:1;font-size:26px;font-weight:600;color:var(--text);line-height:1.6}
+.note-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:0;margin:16px 0;box-shadow:var(--shadow);overflow:hidden}
+.note-card .nc-header{background:var(--note-header-bg);padding:14px 24px;display:flex;align-items:center;gap:10px}
+.note-card .nc-header .nc-icon{font-size:28px;line-height:1}
+.note-card .nc-header .nc-label{font-size:24px;font-weight:600;color:var(--accent)}
+.note-card .nc-body{padding:18px 24px;font-size:24px;color:var(--text);line-height:1.85}
+.quote-block{text-align:center;margin:32px 0}
+.quote-block .q-divider{width:60px;height:1px;background:var(--border);margin:0 auto}
+.quote-block .q-text{font-family:var(--font-display);font-size:40px;font-weight:600;color:var(--text);line-height:1.5;margin:24px 0}
+.quote-block .q-author{font-size:22px;color:var(--muted);margin-top:14px}
+.checklist{margin:16px 0}
+.ck-item{display:flex;align-items:flex-start;gap:14px;padding:10px 0}
+.ck-item:first-child{padding-top:0}
+.ck-item:last-child{padding-bottom:0}
+.ck-box{width:22px;height:22px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;margin-top:3px}
+.ck-box.ck-on{background:var(--accent2);border-color:var(--accent2);display:flex;align-items:center;justify-content:center}
+.ck-box.ck-on::after{content:'✓';color:#fff;font-size:14px;font-weight:700;line-height:1}
+.ck-text{font-size:26px;color:var(--text);line-height:1.7;flex:1}
+.big-number{display:flex;align-items:center;gap:24px;margin:24px 0}
+.big-number .bn-num{font-family:var(--font-display);font-size:80px;font-weight:700;color:var(--accent);line-height:1;flex-shrink:0;min-width:120px}
+.big-number .bn-desc{font-size:24px;color:var(--muted);line-height:1.6}
+.score-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px 28px;margin-bottom:16px;box-shadow:var(--shadow)}
+.score-card .sc-title{font-size:26px;font-weight:600;color:var(--text);margin-bottom:14px}
+.score-card .sc-stars{display:flex;gap:4px;margin-bottom:12px;font-size:28px;line-height:1}
+.score-card .sc-star{color:var(--border)}
+.score-card .sc-star.sc-on{color:var(--accent)}
+.score-card .sc-desc{font-size:24px;color:var(--muted);line-height:1.6}
+.chat{margin:18px 0}
+.chat-bubble{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px;max-width:85%}
+.chat-bubble.ch-right{margin-left:auto;flex-direction:row-reverse}
+.ch-avatar{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px}
+.chat-bubble.ch-left .ch-avatar{background:var(--accent3)}
+.chat-bubble.ch-right .ch-avatar{background:var(--accent)}
+.ch-content{padding:14px 20px;border-radius:12px;font-size:24px;line-height:1.65;color:var(--text)}
+.chat-bubble.ch-left .ch-content{background:var(--tag-bg);border-top-left-radius:4px}
+.chat-bubble.ch-right .ch-content{background:var(--hl-accent-bg);border-top-right-radius:4px}
+.footer{text-align:center;color:var(--light);font-size:22px;padding-top:28px;border-top:1px solid var(--border);margin-top:40px}
+</style>
+</head>
+<body>
+
+<div class="lib-banner">
+  📖 视觉组件库
+  <span>|</span>
+  <span>修改 <code>config/brand.css</code> 后刷新即可看效果更新</span>
+</div>
+
+<div class="lib-wrapper">
+
+<!-- intro -->
+<div style="padding:40px 56px 32px;border-bottom:1px solid var(--border);margin-bottom:8px;">
+  <p style="font-size:28px;font-weight:700;color:var(--text);margin-bottom:12px;">可用组件一览</p>
+  <p style="font-size:22px;color:var(--muted);line-height:1.8;">本页展示该视觉系统下所有可用的内容组件，共 14 类。AI 排版时从这里选取组合，你也可以在脚本定稿后指定想用哪些组件。</p>
+  <p style="font-size:20px;color:var(--light);margin-top:12px;line-height:1.7;">Section · Card · Steps · Highlight · Flow · Compare · Pitfall · Conclusion · Note · Quote · Checklist · BigNumber · ScoreCard · Chat · Footer</p>
+</div>
+
+<!-- ─── Section 章节标题 ─── -->
+<div class="lib-label">Section · 章节标题</div>
+<div class="lib-section">
+  <div class="section">
+    <h2>为什么内容创作者需要 AI 生产管线</h2>
+    <p class="desc">不是 AI 帮你想内容，而是让你从脚本到切图的整个流程提速三倍。</p>
+  </div>
+</div>
+<div class="lib-divider"></div>
+
+<!-- ─── Card 卡片 ─── -->
+<div class="lib-label">Card · 卡片</div>
+<div class="lib-section">
+  <div class="card">
+    <div class="card-header">
+      <div class="icon c-accent">✦</div>
+      <h3>Claude Code 是什么</h3>
+      <div class="loc loc-green">命令行 AI 工具</div>
+    </div>
+    <div class="card-body">
+      Anthropic 出的终端 AI 编程工具，不需要打开 IDE，直接在命令行里操作整个代码库。对内容创作者的价值在于：能读懂你的整个项目结构，执行批量文件操作，自动化重复任务。
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px;">
+    <div class="card-header">
+      <div class="icon c-green">△</div>
+      <h3>适合什么人用</h3>
+    </div>
+    <div class="card-body">
+      有一定技术基础、日常重度使用终端的人。纯内容创作者如果不熟悉命令行，上手成本会比较高。
+    </div>
+  </div>
+</div>
+<div class="lib-divider"></div>
+
+<!-- ─── Steps 编号步骤 ─── -->
+<div class="lib-label">Steps · 编号步骤</div>
+<div class="lib-section">
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">安装 Node.js 和 Chrome</div>
+        <div class="step-desc">Node.js 18+ 即可，Chrome 用于 Puppeteer 截图导出，脚本会自动检测路径。</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num sn-green">2</div>
+      <div>
+        <div class="step-title">克隆工具包并安装依赖</div>
+        <div class="step-desc">git clone 后在目录内跑 npm install puppeteer-core，约 30 秒完成。</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num sn-blue">3</div>
+      <div>
+        <div class="step-title">运行 skill，完成初始化</div>
+        <div class="step-desc">告诉 AI「帮我做小红书图文」，首次运行会引导你选配色方案，约 1 分钟搞定。</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lib-divider"></div>
+
+<!-- ─── Highlight Block 高亮块 ─── -->
+<div class="lib-label">Highlight Block · 高亮块</div>
+<div class="lib-section">
+  <div class="hl-block">
+    核心判断：AI 工具的价值不在于替代创作，而在于消灭生产管线里的重复动作——模板复制、格式调整、批量导出这些。
+  </div>
+  <div class="hl-block hl-green" style="margin-top:16px;">
+    可以这样用：脚本由你来写，视觉排版和切图交给 AI 自动完成，最终发布前再做一次人工检查。
+  </div>
+</div>
+<div class="lib-divider"></div>
+
+<!-- ─── Flow Row 横向流程 ─── -->
+<div class="lib-label">Flow Row · 横向流程</div>
+<div class="lib-section">
+  <div class="flow-row">
+    <div class="flow-node" style="border-top:3px solid var(--accent)">
+      <div class="fn-title" style="color:var(--accent)">写脚本</div>
+      <div class="fn-desc">用户定稿文字</div>
+    </div>
+    <div class="flow-arrow">+</div>
+    <div class="flow-node" style="border-top:3px solid var(--accent2)">
+      <div class="fn-title" style="color:var(--accent2)">AI 排版</div>
+      <div class="fn-desc">自动选组件组合</div>
+    </div>
+    <div class="flow-arrow">+</div>
+    <div class="flow-node" style="border-top:3px solid var(--accent3)">
+      <div class="fn-title" style="color:var(--accent3)">切图导出</div>
+      <div class="fn-desc">Puppeteer 截图</div>
+    </div>
+  </div>
+</div>
+<div class="lib-divider"></div>
+
+<!-- ─── Compare Grid 前后对比 ─── -->
+<div class="lib-label">Compare Grid · 前后对比</div>
+<div class="lib-section">
+  <div class="compare">
+    <div class="compare-col col-old">
+      <h4>以前</h4>
+      <div class="compare-item"><span class="ci-x">✗</span> 每次做图都从头来——找模板、调色、对齐、截图</div>
+      <div class="compare-item"><span class="ci-x">✗</span> 一套流程两小时起</div>
+    </div>
+    <div class="compare-col col-new">
+      <h4>现在</h4>
+      <div class="compare-item"><span class="ci-ok">✓</span> 写完脚本，AI 排版 + 切图全自动</div>
+      <div class="compare-item"><span class="ci-ok">✓</span> 20 分钟出一套完整图文</div>
+    </div>
+  </div>
+</div>
+<div class="lib-divider"></div>
+
+<!-- ─── Pitfall 常见坑 ─── -->
+<div class="lib-label">Pitfall · 常见坑</div>
+<div class="lib-section">
+  <div class="pitfall">
+    <div class="pitfall-title">① 别把 AI 当写手</div>
+    <div class="pitfall-body">让 AI 直接生成脚本发布，读者一眼能看出来。AI 的价值在流程自动化，不在内容替代。<strong>脚本还是得自己写</strong>，个人经历和观点是没法批量生产的东西。</div>
+  </div>
+</div>
+<div class="lib-divider"></div>
+
+<!-- ─── Conclusion Bar 结论条 ─── -->
+<div class="lib-label">Conclusion Bar · 结论条</div>
+<div class="lib-section">
+  <div class="conclusion-bar">
+    <span class="cb-icon">✅</span>
+    <span class="cb-text">有内容 + 有生产系统，才是长期做小红书的正确姿势</span>
+  </div>
+</div>
+<div class="lib-divider"></div>
+
+<!-- ─── Note Card 注意卡 ─── -->
+<div class="lib-label">Note Card · 注意卡</div>
+<div class="lib-section">
+  <div class="note-card">
+    <div class="nc-header">
+      <span class="nc-icon">📌</span>
+      <span class="nc-label">使用前确认</span>
+    </div>
+    <div class="nc-body">首次运行需要网络加载 Google Fonts（如网络不通，字体会降级为系统字体，不影响排版结构）。导出截图需要本地安装 Chrome 或 Chromium。</div>
+  </div>
+</div>
+<div class="lib-divider"></div>
+
+<!-- ─── Quote Block 金句块 ─── -->
+<div class="lib-label">Quote Block · 金句块</div>
+<div class="lib-section">
+  <div class="quote-block">
+    <div class="q-divider"></div>
+    <div class="q-text">AI 改变的不是你说什么，而是你多快能把它变成一张图</div>
+    <div class="q-divider"></div>
+    <div class="q-author">— 个人观察</div>
+  </div>
+</div>
+<div class="lib-divider"></div>
+
+<!-- ─── Checklist 清单 ─── -->
+<div class="lib-label">Checklist · 勾选清单</div>
+<div class="lib-section">
+  <div class="checklist">
+    <div class="ck-item">
+      <div class="ck-box ck-on"></div>
+      <div class="ck-text">安装 Node.js 18+</div>
+    </div>
+    <div class="ck-item">
+      <div class="ck-box ck-on"></div>
+      <div class="ck-text">确认 Chrome 已安装</div>
+    </div>
+    <div class="ck-item">
+      <div class="ck-box ck-on"></div>
+      <div class="ck-text">克隆工具包并 npm install</div>
+    </div>
+    <div class="ck-item">
+      <div class="ck-box"></div>
+      <div class="ck-text">完成首次初始化配色</div>
+    </div>
+    <div class="ck-item">
+      <div class="ck-box"></div>
+      <div class="ck-text">用自己的内容跑一次完整流程</div>
+    </div>
+  </div>
+</div>
+<div class="lib-divider"></div>
+
+<!-- ─── Big Number 大数字强调 ─── -->
+<div class="lib-label">Big Number · 大数字强调</div>
+<div class="lib-section">
+  <div class="big-number">
+    <div class="bn-num">3×</div>
+    <div class="bn-desc">接入 AI 生产管线后，从脚本定稿到切图交付的时间缩短了三倍</div>
+  </div>
+</div>
+<div class="lib-divider"></div>
+
+<!-- ─── Score Card 评分卡 ─── -->
+<div class="lib-label">Score Card · 评分卡</div>
+<div class="lib-section">
+  <div class="score-card">
+    <div class="sc-title">上手难度</div>
+    <div class="sc-stars">
+      <span class="sc-star sc-on">★</span><span class="sc-star sc-on">★</span><span class="sc-star sc-on">★</span><span class="sc-star">★</span><span class="sc-star">★</span>
+    </div>
+    <div class="sc-desc">需要基础的命令行操作能力，完全零基础会有门槛</div>
+  </div>
+  <div class="score-card">
+    <div class="sc-title">输出稳定性</div>
+    <div class="sc-stars">
+      <span class="sc-star sc-on">★</span><span class="sc-star sc-on">★</span><span class="sc-star sc-on">★</span><span class="sc-star sc-on">★</span><span class="sc-star">★</span>
+    </div>
+    <div class="sc-desc">视觉系统固定，AI 排版判断偶有偏差，复查后可修正</div>
+  </div>
+</div>
+<div class="lib-divider"></div>
+
+<!-- ─── Chat 对话气泡 ─── -->
+<div class="lib-label">Chat · 对话气泡</div>
+<div class="lib-section">
+  <div class="chat">
+    <div class="chat-bubble ch-left">
+      <div class="ch-avatar">🤔</div>
+      <div class="ch-content">我不懂代码，能用这个工具吗？</div>
+    </div>
+    <div class="chat-bubble ch-right">
+      <div class="ch-avatar">💡</div>
+      <div class="ch-content">可以用，但有门槛。需要会基础的命令行操作和文件路径概念。如果你完全没接触过终端，建议先跟着 README 跑一遍，能跑通就没问题。</div>
+    </div>
+    <div class="chat-bubble ch-left">
+      <div class="ch-avatar">🤔</div>
+      <div class="ch-content">导出图片的尺寸可以改吗？</div>
+    </div>
+    <div class="chat-bubble ch-right">
+      <div class="ch-avatar">💡</div>
+      <div class="ch-content">可以。export-slice.js 的第三个参数是切片高度，默认 1440，改成你需要的数字就行。宽度固定 1080px，符合小红书标准。</div>
+    </div>
+  </div>
+</div>
+<div class="lib-divider"></div>
+
+<!-- ─── Footer 页脚 ─── -->
+<div class="lib-label">Footer · 页脚</div>
+<div class="lib-section">
+  <div class="footer">
+    @你的账号 · 持续更新
+  </div>
+</div>
+
+</div>
+</body>
+</html>

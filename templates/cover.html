@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>封面</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../templates/tokens.css">
+<link rel="stylesheet" href="../presets/warm-copper.css">
+<link rel="stylesheet" href="../config/brand.css">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  width: 1080px;
+  height: 1440px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 顶部装饰线 */
+.top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: var(--accent);
+}
+
+/* 底部装饰线 */
+.bottom-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: var(--accent);
+  opacity: 0.4;
+}
+
+/* 背景几何装饰 */
+.bg-shape {
+  position: absolute;
+  bottom: 80px;
+  right: -60px;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.04;
+}
+
+/* 主内容区 */
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 100px 88px;
+}
+
+/* 引导语 */
+.guide-text {
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 48px;
+  line-height: 1.6;
+}
+
+/* 主标题 */
+.main-title {
+  font-family: var(--font-display);
+  font-size: 88px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 48px;
+}
+
+.main-title .line2 {
+  display: block;
+  color: var(--accent);
+}
+
+.main-title .line2:empty {
+  display: none;
+}
+
+/* 分隔线 */
+.divider {
+  width: 60px;
+  height: 4px;
+  background: var(--accent);
+  margin-bottom: 40px;
+}
+
+/* 副标题 */
+.subtitle {
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 700px;
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar"></div>
+<div class="bottom-bar"></div>
+<div class="bg-shape"></div>
+
+<div class="content">
+  <p class="guide-text"><!-- GUIDE_TEXT --></p>
+  <h1 class="main-title">
+    <span class="line1"><!-- MAIN_TITLE_LINE1 --></span>
+    <span class="line2"><!-- MAIN_TITLE_LINE2 --></span>
+  </h1>
+  <div class="divider"></div>
+  <p class="subtitle"><!-- SUBTITLE -->

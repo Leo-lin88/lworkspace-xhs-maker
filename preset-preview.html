@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>XHS Visual Pipeline · 选择视觉预设</title>
+<!--
+  preset-preview.html · 选色工具
+  此文件使用 inline 样式，不随 config/brand.css 自动更新。
+  仅供首次初始化时选色使用。选定后修改 config/brand.css 即可。
+-->
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "PingFang SC", "Noto Sans SC", system-ui, sans-serif; background: #EBEBEB; padding: 48px 40px; min-height: 100vh; }
+h1 { font-size: 26px; font-weight: 700; color: #1A1A1A; margin-bottom: 8px; }
+.subtitle { font-size: 15px; color: #666; margin-bottom: 36px; line-height: 1.7; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1080px; }
+.preset-card { border-radius: 14px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.09); }
+.preview-area { padding: 24px 20px 20px; }
+.preset-num { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; opacity: 0.45; margin-bottom: 16px; }
+.mini-card { border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; }
+.mini-card-bar { height: 7px; border-radius: 4px; margin-bottom: 7px; width: 45%; }
+.mini-card-text { height: 5px; border-radius: 3px; margin-bottom: 5px; opacity: 0.35; }
+.mini-card-text.w80 { width: 80%; }
+.mini-card-text.w60 { width: 60%; }
+.mini-hl { border-radius: 0 6px 6px 0; padding: 10px 12px; margin-bottom: 10px; }
+.mini-hl-bar { height: 5px; border-radius: 3px; opacity: 0.4; margin-bottom: 5px; }
+.mini-hl-bar.w70 { width: 70%; }
+.mini-hl-bar.w50 { width: 50%; }
+.mini-tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.card-meta { padding: 14px 20px 18px; }
+.card-name { font-size: 16px; font-weight: 700; margin-bottom: 3px; }
+.card-desc { font-size: 12px; opacity: 0.6; line-height: 1.6; }
+.footer { margin-top: 40px; padding: 24px 28px; background: #fff; border-radius: 14px; max-width: 1080px; }
+.footer h2 { font-size: 17px; font-weight: 600; color: #1A1A1A; margin-bottom: 10px; }
+.footer p { font-size: 14px; color: #555; line-height: 1.8; }
+.footer code { background: #F0F0F0; padding: 1px 7px; border-radius: 4px; font-family: monospace; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<h1>选择你的视觉预设</h1>
+<p class="subtitle">在浏览器中对比 6 种配色，确认后告诉 AI「选 ①」或预设名称。<br>每张卡片展示了真实的卡片组件 + 高亮块在该配色下的样子。</p>
+
+<div class="grid">
+
+  <!-- ① warm-copper -->
+  <div class="preset-card">
+    <div class="preview-area" style="background:#FAF8F5;">
+      <div class="preset-num" style="color:#2C2416;">① WARM-COPPER</div>
+      <div class="mini-card" style="background:#FFFFFF;border:1px solid #E8E4DF;">
+        <div class="mini-card-bar" style="background:#C8673A;"></div>
+        <div class="mini-card-text w80" style="background:#2C2416;"></div>
+        <div class="mini-card-text w60" style="background:#8C8276;"></div>
+      </div>
+      <div class="mini-hl" style="border-left:3px solid #C8673A;background:rgba(200,103,58,0.05);">
+        <div class="mini-hl-bar w70" style="background:#2C2416;"></div>
+        <div class="mini-hl-bar w50" style="background:#8C8276;"></div>
+      </div>
+      <div class="mini-tag" style="background:rgba(200,103,58,0.1);color:#C8673A;">标签示例</div>
+    </div>
+    <div class="card-meta" style="background:#FFFFFF;">
+      <div class="card-name" style="color:#2C2416;">暖铜</div>
+      <div class="card-desc" style="color:#8C8276;">米白底 · 铜橘强调 · 生活 / 经验 / 分享</div>
+    </div>
+  </div>
+
+  <!-- ② clean-minimal -->
+  <div class="preset-card">
+    <div class="preview-area" style="background:#FFFFFF;border:1px solid #E0E0E0;">
+      <div class="preset-num" style="color:#0D0D0D;">② CLEAN-MINIMAL</div>
+      <div class="mini-card" style="background:#F9F9F9;border:1px solid #E0E0E0;">
+        <div class="mini-card-bar" style="background:#0D0D0D;"></div>
+        <div class="mini-card-text w80" style="background:#0D0D0D;"></div>
+        <div class="mini-card-text w60" style="background:#555555;"></div>
+      </div>
+      <div class="mini-hl" style="border-left:3px solid #0D0D0D;background:rgba(13,13,13,0.04);">
+        <div class="mini-hl-bar w70" style="background:#0D0D0D;"></div>
+        <div class="mini-hl-bar w50" style="background:#555555;"></div>
+      </div>
+      <div class="mini-tag" style="background:#F5F5F5;color:#0D0D0D;">标签示例</div>
+    </div>
+    <div class="card-meta" style="background:#F9F9F9;">
+      <div class="card-name" style="color:#0D0D0D;">极简黑白</div>
+      <div class="card-desc" style="color:#555555;">纯白底 · 深灰强调 · 干货 / 工具 / 技术</div>
+    </div>
+  </div>
+
+  <!-- ③ ocean-blue -->
+  <div class="preset-card">
+    <div class="preview-area" style="background:#F0F4F8;">
+      <div class="preset-num" style="color:#1A2B3C;">③ OCEAN-BLUE</div>
+      <div class="mini-card" style="background:#FFFFFF;border:1px solid #C8D8E8;">
+        <div class="mini-card-bar" style="background:#1B4F8A;"></div>
+        <div class="mini-card-text w80" style="background:#1A2B3C;"></div>
+        <div class="mini-card-text w60" style="background:#5A7A9A;"></div>
+      </div>
+      <div class="mini-hl" style="border-left:3px solid #1B4F8A;background:rgba(27,79,138,0.05);">
+        <div class="mini-hl-bar w70" style="background:#1A2B3C;"></div>
+        <div class="mini-hl-bar w50" style="background:#5A7A9A;"></div>
+      </div>
+      <div class="mini-tag" style="background:rgba(27,79,138,0.1);color:#1B4F8A;">标签示例</div>
+    </div>
+    <div class="card-meta" style="background:#FFFFFF;">
+      <div class="card-name" style="color:#1A2B3C;">海蓝</div>
+      <div class="card-desc" style="color:#5A7A9A;">灰白底 · 深海蓝强调 · 科技 / 信息 / 数据</div>
+    </div>
+  </div>
+
+  <!-- ④ forest-green -->
+  <div class="preset-card">
+    <div class="preview-area" style="background:#F5F7F0;">
+      <div class="preset-num" style="color:#1C2E1C;">④ FOREST-GREEN</div>
+      <div class="mini-card" style="background:#FFFFFF;border:1px solid #C8D8C0;">
+        <div class="mini-card-bar" style="background:#2D6A4F;"></div>
+        <div class="mini-card-text w80" style="background:#1C2E1C;"></div>
+        <div class="mini-card-text w60" style="background:#5A7A5A;"></div>
+      </div>
+      <div class="mini-hl" style="border-left:3px solid #2D6A4F;background:rgba(45,106,79,0.05);">
+        <div class="mini-hl-bar w70" style="background:#1C2E1C;"></div>
+        <div class="mini-hl-bar w50" style="background:#5A7A5A;"></div>
+      </div>
+      <div class="mini-tag" style="background:rgba(45,106,79,0.1);color:#2D6A4F;">标签示例</div>
+    </div>
+    <div class="card-meta" style="background:#FFFFFF;">
+      <div class="card-name" style="color:#1C2E1C;">林绿</div>
+      <div class="card-desc" style="color:#5A7A5A;">暖白底 · 墨绿强调 · 健康 / 成长 / 效率</div>
+    </div>
+  </div>
+
+  <!-- ⑤ editorial-red -->
+  <div class="preset-card">
+    <div class="preview-area" style="background:#FFFFFF;border:1px solid #DDDDDD;">
+      <div class="preset-num" style="color:#0A0A0A;">⑤ EDITORIAL-RED</div>
+      <div class="mini-card" style="background:#F8F8F8;border:1px solid #1A1A1A;">
+        <div class="mini-card-bar" style="background:#D63031;"></div>
+        <div class="mini-card-text w80" style="background:#0A0A0A;"></div>
+        <div class="mini-card-text w60" style="background:#444444;"></div>
+      </div>
+      <div class="mini-hl" style="border-left:3px solid #D63031;background:rgba(214,48,49,0.05);">
+        <div class="mini-hl-bar w70" style="background:#0A0A0A;"></div>
+        <div class="mini-hl-bar w50" style="background:#444444;"></div>
+      </div>
+      <div class="mini-tag" style="background:rgba(214,48,49,0.1);color:#D63031;">标签示例</div>
+    </div>
+    <div class="card-meta" style="background:#F8F8F8;">
+      <div class="card-name" style="color:#0A0A0A;">编辑红</div>
+      <div class="card-desc" style="color:#444444;">纯白底 · 亮红强调 · 观点 / 话题 / 评论</div>
+    </div>
+  </div>
+
+  <!-- ⑥ ink-purple -->
+  <div class="preset-card">
+    <div class="preview-area" style="background:#FAF8FF;">
+      <div class="preset-num" style="color:#1A0E2E;">⑥ INK-PURPLE</div>
+      <div class="mini-card" style="background:#FFFFFF;border:1px solid #D4C8E8;">
+        <div class="mini-card-bar" style="background:#5C3B8A;"></div>
+        <div class="mini-card-text w80" style="background:#1A0E2E;"></div>
+        <div class="mini-card-text w60" style="background:#6B5E8A;"></div>
+      </div>
+      <div class="mini-hl" style="border-left:3px solid #5C3B8A;background:rgba(92,59,138,0.05);">
+        <div class="mini-hl-bar w70" style="background:#1A0E2E;"></div>
+        <div class="mini-hl-bar w50" style="background:#6B5E8A;"></div>
+      </div>
+      <div class="mini-tag" style="background:rgba(92,59,138,0.1);color:#5C3B8A;">标签示例</div>
+    </div>
+    <div class="card-meta" style="background:#FFFFFF;">
+      <div class="card-name" style="color:#1A0E2E;">墨紫</div>
+      <div class="card-desc" style="color:#6B5E8A;">奶白底 · 深紫强调 · 创意 / 艺术 / 个人品牌</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <h2>怎么选</h2>
+  <p>
+    告诉 AI「选 ①」或「warm-copper」，AI 会自动应用配色并生成你的组件库预览文件。<br>
+    不满意任何预设？说「自定义」，AI 引导你输入背景色和强调色。<br>
+    配置完成后写入 <code>config/brand.css</code>，后续调整直接改这个文件，刷新浏览器即可看效果。
+  </p>
+</div>
+
+</body>
+</html>

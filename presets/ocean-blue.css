@@ -1,0 +1,16 @@
+/* 海蓝 · 灰白底 + 深海蓝强调 · 适合科技/信息/数据类内容 */
+:root {
+  --bg: #F0F4F8; --card: #FFFFFF; --border: #C8D8E8; --tag-bg: #E4EEF6;
+  --text: #1A2B3C; --muted: #5A7A9A; --light: #8AAABF;
+  --accent: #1B4F8A; --accent2: #2980B9; --accent3: #5DADE2; --accent4: #85C1E9;
+  --hl-accent-bg: rgba(27,79,138,0.04); --hl-green-bg: rgba(41,128,185,0.04);
+  --hl-blue-bg: rgba(93,173,226,0.04); --hl-purple-bg: rgba(133,193,233,0.04);
+  --tag-cloud-bg: rgba(41,128,185,0.06); --tag-cloud-border: rgba(41,128,185,0.15);
+  --tag-local-bg: rgba(27,79,138,0.05); --tag-local-border: rgba(27,79,138,0.12);
+  --param-accent-bg: rgba(27,79,138,0.08); --param-green-bg: rgba(41,128,185,0.08);
+  --param-blue-bg: rgba(93,173,226,0.08);
+  --param-accent-val-bg: rgba(27,79,138,0.05); --param-green-val-bg: rgba(41,128,185,0.06);
+  --param-blue-val-bg: rgba(93,173,226,0.06); --param-purple-val-bg: rgba(133,193,233,0.06);
+  --note-header-bg: rgba(27,79,138,0.05);
+  --dt-cloud-bg: rgba(41,128,185,0.08); --dt-local-bg: rgba(27,79,138,0.06);
+}

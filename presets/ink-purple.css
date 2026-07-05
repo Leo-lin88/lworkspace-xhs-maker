@@ -1,0 +1,16 @@
+/* 墨紫 · 奶白底 + 深紫强调 · 适合创意/艺术/个人品牌类内容 */
+:root {
+  --bg: #FAF8FF; --card: #FFFFFF; --border: #D4C8E8; --tag-bg: #EDE8F5;
+  --text: #1A0E2E; --muted: #6B5E8A; --light: #9B8FBA;
+  --accent: #5C3B8A; --accent2: #7C5CBF; --accent3: #9B7EB8; --accent4: #C4B0DC;
+  --hl-accent-bg: rgba(92,59,138,0.04); --hl-green-bg: rgba(124,92,191,0.04);
+  --hl-blue-bg: rgba(155,126,184,0.04); --hl-purple-bg: rgba(196,176,220,0.04);
+  --tag-cloud-bg: rgba(124,92,191,0.06); --tag-cloud-border: rgba(124,92,191,0.15);
+  --tag-local-bg: rgba(92,59,138,0.05); --tag-local-border: rgba(92,59,138,0.12);
+  --param-accent-bg: rgba(92,59,138,0.08); --param-green-bg: rgba(124,92,191,0.08);
+  --param-blue-bg: rgba(155,126,184,0.08);
+  --param-accent-val-bg: rgba(92,59,138,0.05); --param-green-val-bg: rgba(124,92,191,0.06);
+  --param-blue-val-bg: rgba(155,126,184,0.06); --param-purple-val-bg: rgba(196,176,220,0.06);
+  --note-header-bg: rgba(92,59,138,0.05);
+  --dt-cloud-bg: rgba(124,92,191,0.08); --dt-local-bg: rgba(92,59,138,0.06);
+}

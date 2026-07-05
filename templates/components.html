@@ -1,0 +1,443 @@
+<!-- ═══════════════════════════════════════════════════
+     组件模板库 · 小红书图文 可执行版本
+     用途: 做新选题时从这里复制组件片段，拼装 demo.html
+     依赖: 页面需先引入 templates/tokens.css
+     ═══════════════════════════════════════════════════ -->
+
+<!-- ============================================ -->
+<!-- 1. 封面 Header                                -->
+<!-- ============================================ -->
+<!--
+<div class="header">
+  <div class="pretitle">分类标签</div>
+  <h1>主标题</h1>
+  <p class="subtitle">副标题或一句话概述</p>
+</div>
+-->
+
+<!-- ============================================ -->
+<!-- 2. 章节 Section + h2                           -->
+<!-- ============================================ -->
+<!--
+<div class="section">
+  <h2>章节标题</h2>
+  <p class="desc">章节简述。</p>
+
+  内容...
+
+</div>
+-->
+<!-- h2 颜色变体 -->
+<!--
+<h2 class="h-green">墨绿左边框</h2>
+<h2 class="h-blue">钢蓝左边框</h2>
+<h2 class="h-purple">雾紫左边框</h2>
+-->
+
+<!-- ============================================ -->
+<!-- 3. 卡片 Card                                   -->
+<!-- ============================================ -->
+<!--
+<div class="card">
+  <div class="card-header">
+    <div class="icon c-accent">标</div>
+    <h3>卡片标题</h3>
+    <div class="loc">可选路径标注</div>
+  </div>
+  <div class="card-body">
+    卡片正文内容。<strong>加粗强调</strong>
+  </div>
+</div>
+-->
+<!-- icon 颜色变体: c-accent / c-green / c-blue / c-purple -->
+
+<!-- ============================================ -->
+<!-- 4. 编号步骤 Steps                              -->
+<!-- ============================================ -->
+<!--
+<div class="steps">
+  <div class="step">
+    <div class="step-num">1</div>
+    <div>
+      <div class="step-title">步骤标题</div>
+      <div class="step-desc">步骤描述</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num sn-green">2</div>
+    <div>
+      <div class="step-title">步骤标题</div>
+      <div class="step-desc">步骤描述</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num sn-blue">3</div>
+    <div>
+      <div class="step-title">步骤标题</div>
+      <div class="step-desc">步骤描述</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num sn-purple">4</div>
+    <div>
+      <div class="step-title">步骤标题</div>
+      <div class="step-desc">步骤描述</div>
+    </div>
+  </div>
+</div>
+-->
+<!-- sn 颜色: (默认铜橘) / sn-green / sn-blue / sn-purple -->
+
+<!-- ============================================ -->
+<!-- 5. 图片 Image                                 -->
+<!-- ============================================ -->
+
+<!-- 单图 -->
+<!--
+<div class="img-wrap">
+  <img src="素材/xxx.png" alt="描述">
+  <div class="img-caption">图片说明 · 来源</div>
+</div>
+-->
+
+<!-- 双图并排 -->
+<!--
+<div class="img-row">
+  <div class="img-wrap">
+    <img src="素材/a.png" alt="">
+    <div class="img-caption">图1说明</div>
+  </div>
+  <div class="img-wrap">
+    <img src="素材/b.png" alt="">
+    <div class="img-caption">图2说明</div>
+  </div>
+</div>
+-->
+
+<!-- ============================================ -->
+<!-- 6. 高亮块 Highlight Block                      -->
+<!-- ============================================ -->
+<!--
+<div class="hl-block">
+  默认铜橘左边框。用于核心结论。
+</div>
+
+<div class="hl-block hl-green">
+  墨绿左边框。用于正面结论、正确做法。
+</div>
+
+<div class="hl-block hl-blue">
+  钢蓝左边框。用于技术说明、补充信息。
+</div>
+
+<div class="hl-block hl-purple">
+  雾紫左边框。用于扩展备注。
+</div>
+-->
+
+<!-- ============================================ -->
+<!-- 7. 横向流程 Flow Row                            -->
+<!-- ============================================ -->
+<!--
+<div class="flow-row">
+  <div class="flow-node" style="border-top:3px solid var(--accent)">
+    <div class="fn-title" style="color:var(--accent)">节点1</div>
+    <div class="fn-desc">描述说明文字</div>
+  </div>
+  <div class="flow-arrow">+</div>
+  <div class="flow-node" style="border-top:3px solid var(--accent2)">
+    <div class="fn-title" style="color:var(--accent2)">节点2</div>
+    <div class="fn-desc">描述说明文字</div>
+  </div>
+  <div class="flow-arrow">+</div>
+  <div class="flow-node" style="border-top:3px solid var(--accent3)">
+    <div class="fn-title" style="color:var(--accent3)">节点3</div>
+    <div class="fn-desc">描述说明文字</div>
+  </div>
+</div>
+-->
+
+<!-- ============================================ -->
+<!-- 8. 前后对比 Compare Grid                        -->
+<!-- ============================================ -->
+<!--
+<div class="compare">
+  <div class="compare-col col-old">
+    <h4>以前</h4>
+    <div class="compare-item"><span class="ci-x">✗</span> 问题项1</div>
+    <div class="compare-item"><span class="ci-x">✗</span> 问题项2</div>
+    <div class="compare-item"><span class="ci-x">✗</span> 问题项3</div>
+  </div>
+  <div class="compare-col col-new">
+    <h4>现在</h4>
+    <div class="compare-item"><span class="ci-ok">✓</span> 改进项1</div>
+    <div class="compare-item"><span class="ci-ok">✓</span> 改进项2</div>
+    <div class="compare-item"><span class="ci-ok">✓</span> 改进项3</div>
+  </div>
+</div>
+-->
+
+<!-- ============================================ -->
+<!-- 9. 常见坑 Pitfall                               -->
+<!-- ============================================ -->
+<!--
+<div class="pitfall">
+  <div class="pitfall-title">① 问题名称 → 现象</div>
+  <div class="pitfall-body">原因和解决方法。<strong>关键信息加粗</strong>。</div>
+</div>
+-->
+
+<!-- ============================================ -->
+<!-- 10. 成本表格 Cost Table                         -->
+<!-- ============================================ -->
+<!--
+<table class="cost-table">
+  <tr><th>方案</th><th>费用</th><th>需要</th></tr>
+  <tr><td>方案A</td><td>¥100</td><td>条件A、条件B</td></tr>
+  <tr class="highlight-row"><td>方案B（推荐）</td><td>¥10</td><td>条件C</td></tr>
+</table>
+-->
+
+<!-- ============================================ -->
+<!-- 11. 终端窗口 Terminal（备用）                    -->
+<!-- ============================================ -->
+<!--
+<div class="terminal">
+  <div class="t-content">
+    <span class="t-g">$</span> command --flag value<br>
+    <span class="t-m"># 注释说明</span><br>
+    <span class="t-b">key:</span> <span class="t-o">"value"</span><br>
+    <span class="t-r">✗ Error: something went wrong</span>
+  </div>
+</div>
+-->
+<!-- 终端样式在 base.html 中默认不包含，使用前需从旧版 base.html 复制 .terminal 相关 CSS -->
+
+<!-- ============================================ -->
+<!-- 12. 前后转换 Transform Block                    -->
+<!-- ============================================ -->
+<!--
+<div class="transform-block">
+  <div class="transform-before">
+    <div class="tf-label">转换前</div>
+    <div class="tf-prompt">原始内容/状态描述</div>
+  </div>
+  <div class="transform-pivot">转换过程说明</div>
+  <div class="transform-after">
+    <div class="tf-label">转换后</div>
+    <div class="tf-prompt">转换后的内容。<strong>关键改进加粗</strong></div>
+    <div class="tf-tags">
+      <span class="tf-tag">标签1</span>
+      <span class="tf-tag">标签2</span>
+      <span class="tf-tag">标签3</span>
+    </div>
+  </div>
+</div>
+-->
+
+<!-- ============================================ -->
+<!-- 14. 分页标记 Page Break                         -->
+<!-- ============================================ -->
+<!--
+<hr class="page-break">
+-->
+<!-- 放在两张卡片之间，export-slice.js 以此为界吸附切片 -->
+
+<!-- ============================================ -->
+<!-- 16. 决策树 Decision Tree (v3.1)                -->
+<!-- ============================================ -->
+<!--
+<div class="decision-tree">
+  <div class="dt-question">
+    <div class="dt-q-text">核心判断问题</div>
+  </div>
+  <div class="dt-connector"></div>
+  <div class="dt-fork">
+
+    <div class="dt-branch dt-branch-left">
+      <div class="dt-path-label dt-path-cloud">☁️ 路径A标签</div>
+      <div class="dt-path-card">
+        <div class="dt-path-desc">路径A的简要说明</div>
+        <div class="dt-path-result" style="color:var(--accent2);">路径A的结论</div>
+      </div>
+    </div>
+
+    <div class="dt-branch dt-branch-right">
+      <div class="dt-path-label dt-path-local">💻 路径B标签</div>
+      <div class="dt-path-card">
+        <div class="dt-path-desc">路径B的简要说明</div>
+        <div class="dt-path-result" style="color:var(--accent);">路径B的结论</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+-->
+<!-- dt-path-label 颜色: dt-path-cloud (墨绿) / dt-path-local (铜橘) -->
+
+<!-- ============================================ -->
+<!-- 17. 场景标签组 Scene Tag Group (v3.1)           -->
+<!-- ============================================ -->
+<!--
+<div class="scene-tags">
+  <div class="st-label">标签组名称</div>
+  <div class="st-row">
+    <span class="scene-tag st-cloud">云端工具A</span>
+    <span class="scene-tag st-cloud">云端工具B</span>
+    <span class="scene-tag st-cloud">云端工具C</span>
+  </div>
+  <div class="st-label" style="margin-top:10px;">第二组标签</div>
+  <div class="st-row">
+    <span class="scene-tag st-local">本地工具A</span>
+    <span class="scene-tag st-local">本地工具B</span>
+  </div>
+</div>
+-->
+<!-- tag 颜色: st-cloud (墨绿) / st-local (铜橘) / st-use (灰色，用于需求/场景描述) -->
+
+<!-- ============================================ -->
+<!-- 18. 参数面板 Parameter Panel (v3.1)             -->
+<!-- ============================================ -->
+<!--
+<div class="param-panel">
+  <div class="param-row">
+    <div class="pr-icon pr-soft">👁️</div>
+    <div class="pr-info">
+      <div class="pr-name">参数名</div>
+      <div class="pr-note">说明文字</div>
+    </div>
+    <div class="pr-value pr-recommend">推荐值</div>
+  </div>
+  <div class="param-row">
+    <div class="pr-icon pr-accent">🎮</div>
+    <div class="pr-info">
+      <div class="pr-name">参数名</div>
+    </div>
+    <div class="pr-value pr-warn">32G起步</div>
+  </div>
+</div>
+-->
+<!-- pr-icon 颜色: pr-accent (铜橘) / pr-green (墨绿) / pr-blue (钢蓝) / pr-soft (灰色底) -->
+<!-- pr-value 颜色: pr-recommend (墨绿) / pr-warn (铜橘) / pr-info (钢蓝) -->
+
+<!-- ============================================ -->
+<!-- 19. 结论条 Conclusion Bar (v3.1)                -->
+<!-- ============================================ -->
+<!--
+<div class="conclusion-bar">
+  <span class="cb-icon">✅</span>
+  <span class="cb-text">一句话结论</span>
+</div>
+-->
+<!-- 颜色变体: cb-green / cb-blue -->
+
+<!-- ============================================ -->
+<!-- 20. 注意卡 Note Card (v3.1)                      -->
+<!-- ============================================ -->
+<!--
+<div class="note-card">
+  <div class="nc-header">
+    <span class="nc-icon">💡</span>
+    <span class="nc-label">关于XXX的提醒</span>
+  </div>
+  <div class="nc-body">
+    正文内容。<strong>重点加粗</strong>。
+  </div>
+</div>
+-->
+
+<!-- ============================================ -->
+<!-- 21. 页脚 Footer                                 -->
+<!-- ============================================ -->
+<!--
+<div class="footer">
+  账号名 · 有问题评论区说 · 更多内容持续更新
+</div>
+-->
+
+<!-- ============================================ -->
+<!-- 22. 金句块 Quote Block                          -->
+<!-- ============================================ -->
+<!--
+<div class="quote-block">
+  <div class="q-divider"></div>
+  <div class="q-text">真正重要的不是工具本身，而是你用它解决了什么问题。</div>
+  <div class="q-divider"></div>
+  <div class="q-author">—— 某位用户的真实感受</div>
+</div>
+-->
+<!-- q-author 可选，不需要署名时省略此行 -->
+
+<!-- ============================================ -->
+<!-- 23. Checklist                                  -->
+<!-- ============================================ -->
+<!--
+<div class="checklist">
+  <div class="ck-item">
+    <div class="ck-box ck-on"></div>
+    <div class="ck-text">已完成项 · 勾选框用 .ck-on</div>
+  </div>
+  <div class="ck-item">
+    <div class="ck-box"></div>
+    <div class="ck-text">未完成项 · 不加 .ck-on 即为空心框</div>
+  </div>
+  <div class="ck-item">
+    <div class="ck-box ck-on"></div>
+    <div class="ck-text">已确认 · <strong>重要内容可加粗</strong></div>
+  </div>
+</div>
+-->
+
+<!-- ============================================ -->
+<!-- 24. 大数字强调 Big Number                       -->
+<!-- ============================================ -->
+<!--
+<div class="big-number">
+  <div class="bn-num">3×</div>
+  <div class="bn-desc">用上 AI 编程工具后，我的内容产出效率提升了三倍</div>
+</div>
+-->
+<!-- bn-num 放核心数字，bn-desc 放解释文字。布局为横向并排。 -->
+
+<!-- ============================================ -->
+<!-- 25. 评分卡 Score Card                            -->
+<!-- ============================================ -->
+<!--
+<div class="score-card">
+  <div class="sc-title">终端集成体验</div>
+  <div class="sc-stars">
+    <span class="sc-star sc-on">★</span>
+    <span class="sc-star sc-on">★</span>
+    <span class="sc-star sc-on">★</span>
+    <span class="sc-star sc-on">★</span>
+    <span class="sc-star">★</span>
+  </div>
+  <div class="sc-desc">不需要切换 IDE，但 Windows 下偶尔有路径转义问题</div>
+</div>
+-->
+<!-- sc-stars 里 5 颗 ★，加 .sc-on 为亮星（--accent 色），不加为暗星（--border 色）。sc-desc 可选。 -->
+
+<!-- ============================================ -->
+<!-- 26. 对话气泡 Chat                                -->
+<!-- ============================================ -->
+<!--
+<div class="chat">
+  <div class="chat-bubble ch-left">
+    <div class="ch-avatar">🤔</div>
+    <div class="ch-content">这个工具和 Cursor 有什么区别？</div>
+  </div>
+  <div class="chat-bubble ch-right">
+    <div class="ch-avatar">💡</div>
+    <div class="ch-content">最大区别是终端原生——不需要打开 IDE 就能用，而且对整个代码库的理解更深。</div>
+  </div>
+  <div class="chat-bubble ch-left">
+    <div class="ch-avatar">🤔</div>
+    <div class="ch-content">价格呢？适合个人用吗？</div>
+  </div>
+  <div class="chat-bubble ch-right">
+    <div class="ch-avatar">💡</div>
+    <div class="ch-content">Pro 版 20 美元/月。如果你是项目级开发、日常重度用终端，值；偶尔写点脚本的话偏贵。</div>
+  </div>
+</div>
+-->
+<!-- ch-avatar 放 emoji 或文字。ch-left = 提问（左对齐，灰底）/ ch-right = 回答（右对齐，accent 淡底） -->

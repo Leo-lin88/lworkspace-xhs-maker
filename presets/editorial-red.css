@@ -1,0 +1,16 @@
+/* 编辑红 · 纯白底 + 亮红强调 · 适合观点/话题/评论类内容 */
+:root {
+  --bg: #FFFFFF; --card: #F8F8F8; --border: #1A1A1A; --tag-bg: #F0F0F0;
+  --text: #0A0A0A; --muted: #444444; --light: #888888;
+  --accent: #D63031; --accent2: #00B894; --accent3: #0984E3; --accent4: #6C5CE7;
+  --hl-accent-bg: rgba(214,48,49,0.05); --hl-green-bg: rgba(0,184,148,0.05);
+  --hl-blue-bg: rgba(9,132,227,0.05); --hl-purple-bg: rgba(108,92,231,0.05);
+  --tag-cloud-bg: rgba(0,184,148,0.06); --tag-cloud-border: rgba(0,184,148,0.15);
+  --tag-local-bg: rgba(214,48,49,0.05); --tag-local-border: rgba(214,48,49,0.12);
+  --param-accent-bg: rgba(214,48,49,0.08); --param-green-bg: rgba(0,184,148,0.08);
+  --param-blue-bg: rgba(9,132,227,0.08);
+  --param-accent-val-bg: rgba(214,48,49,0.05); --param-green-val-bg: rgba(0,184,148,0.06);
+  --param-blue-val-bg: rgba(9,132,227,0.06); --param-purple-val-bg: rgba(108,92,231,0.06);
+  --note-header-bg: rgba(214,48,49,0.05);
+  --dt-cloud-bg: rgba(0,184,148,0.08); --dt-local-bg: rgba(214,48,49,0.06);
+}

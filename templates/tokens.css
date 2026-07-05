@@ -1,0 +1,78 @@
+/* ═══════════════════════════════════════════════════
+   XHS Visual Pipeline · Design Tokens
+   用途：所有模板统一引用，禁止在模板中硬编码色值
+   覆盖：在 presets/*.css 选择主题，config/brand.css 个性化
+   加载顺序：tokens.css → presets/*.css → config/brand.css
+   ═══════════════════════════════════════════════════ */
+
+/* ===== 1. 色板 ===== */
+
+:root {
+  /* 画布 & 卡片 */
+  --bg:        #FFFFFF;
+  --card:      #FFFFFF;
+  --border:    #E5E7EB;
+  --tag-bg:    #F3F4F6;
+
+  /* 文字 */
+  --text:      #1A1A1A;
+  --muted:     #6B7280;
+  --light:     #9CA3AF;
+
+  /* 四色强调 */
+  --accent:    #2563EB; /* 蓝 · 主强调/警告/核心观点 */
+  --accent2:   #059669; /* 绿 · 正向/确认/可行 */
+  --accent3:   #6B7280; /* 灰 · 信息/技术/中性 */
+  --accent4:   #7C3AED; /* 紫 · 辅助/扩展/备注 */
+
+  /* 功能色 */
+  --badge-yes-bg:    #E8F0E8;
+  --badge-yes-text:  #3D6B4C;
+  --badge-cond-bg:   #F5ECE0;
+  --badge-cond-text: #8C6830;
+  --badge-risk-bg:   #F0E8F0;
+  --badge-risk-text: #6B4C7A;
+
+  /* 高亮块 */
+  --hl-accent-bg:  rgba(37,99,235,0.04);
+  --hl-green-bg:   rgba(5,150,105,0.04);
+  --hl-blue-bg:    rgba(107,114,128,0.04);
+  --hl-purple-bg:  rgba(124,58,237,0.04);
+
+  /* v3.1 视觉表达组件 */
+  --tag-cloud-bg:     rgba(5,150,105,0.06);
+  --tag-cloud-border: rgba(5,150,105,0.15);
+  --tag-local-bg:     rgba(37,99,235,0.05);
+  --tag-local-border: rgba(37,99,235,0.12);
+  --param-accent-bg:  rgba(37,99,235,0.08);
+  --param-green-bg:   rgba(5,150,105,0.08);
+  --param-blue-bg:    rgba(107,114,128,0.08);
+  --param-accent-val-bg: rgba(37,99,235,0.05);
+  --param-green-val-bg:  rgba(5,150,105,0.06);
+  --param-blue-val-bg:   rgba(107,114,128,0.06);
+  --param-purple-val-bg: rgba(124,58,237,0.06);
+  --note-header-bg:   rgba(37,99,235,0.05);
+  --dt-cloud-bg:      rgba(5,150,105,0.08);
+  --dt-local-bg:      rgba(37,99,235,0.06);
+
+  /* 终端 */
+  --term-bg:       #1E1E1E;
+  --term-bar:      #2D2D2D;
+  --term-text:     #D4D4D4;
+  --term-green:    #6A9955;
+  --term-blue:     #4EC9B0;
+  --term-orange:   #CE9178;
+  --term-red:      #EA6962;
+  --term-comment:  #6A9955;
+
+  /* 投影 */
+  --shadow:        0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
+}
+
+/* ===== 2. 字体 ===== */
+
+:root {
+  --font-display:  "Noto Serif SC", serif;
+  --font-body:     "Noto Sans SC", "PingFang SC", system-ui, sans-serif;
+  --font-mono:     "JetBrains Mono", monospace;
+}

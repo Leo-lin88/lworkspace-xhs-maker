@@ -1,0 +1,16 @@
+/* 暖铜 · 米白底 + 铜橘强调 · 适合生活/经验/分享类内容 */
+:root {
+  --bg: #FAF8F5; --card: #FFFFFF; --border: #E8E4DF; --tag-bg: #F5F1EC;
+  --text: #2C2416; --muted: #8C8276; --light: #B8B0A4;
+  --accent: #C8673A; --accent2: #4A7C6F; --accent3: #6B8FBF; --accent4: #9B7EB8;
+  --hl-accent-bg: rgba(200,103,58,0.04); --hl-green-bg: rgba(74,124,111,0.04);
+  --hl-blue-bg: rgba(107,143,191,0.04); --hl-purple-bg: rgba(155,126,184,0.04);
+  --tag-cloud-bg: rgba(74,124,111,0.06); --tag-cloud-border: rgba(74,124,111,0.15);
+  --tag-local-bg: rgba(200,103,58,0.05); --tag-local-border: rgba(200,103,58,0.12);
+  --param-accent-bg: rgba(200,103,58,0.08); --param-green-bg: rgba(74,124,111,0.08);
+  --param-blue-bg: rgba(107,143,191,0.08);
+  --param-accent-val-bg: rgba(200,103,58,0.05); --param-green-val-bg: rgba(74,124,111,0.06);
+  --param-blue-val-bg: rgba(107,143,191,0.06); --param-purple-val-bg: rgba(155,126,184,0.06);
+  --note-header-bg: rgba(200,103,58,0.05);
+  --dt-cloud-bg: rgba(74,124,111,0.08); --dt-local-bg: rgba(200,103,58,0.06);
+}
