@@ -10,6 +10,12 @@ function findChrome() {
     process.env.LOCALAPPDATA + '/Google/Chrome/Application/chrome.exe',
     // macOS
     '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    // Windows Edge（系统预装）
+    'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',
+    'C:/Program Files/Microsoft/Edge/Application/msedge.exe',
+    process.env.LOCALAPPDATA + '/Microsoft/Edge/Application/msedge.exe',
+    // macOS Edge
+    '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge',
     '/Applications/Chromium.app/Contents/MacOS/Chromium',
     // Linux
     '/usr/bin/google-chrome',
