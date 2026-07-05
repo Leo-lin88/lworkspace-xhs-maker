@@ -1,16 +1,16 @@
-# XHS Visual Pipeline
+# lworkspace-xhs-maker
 
-小红书图文视觉生产工具包 · 适用于 Claude Desktop + Claude Code
+小红书、抖音内容创作，图文内容生产工具包 · 适用于 Claude、Codex类Agent工具
 
-从定稿内容到切图交付，AI 完成排版、封面生成、图片导出全流程。
+你产出内容脚本后，Ai自动排版、分页切图、封面制作、图文导出。
 
 ---
 
 ## 前置要求
 
-- Node.js 18+
+- Node.js 18+ （本地缺失时，Ai会引导下载安装）
 - Chrome 或 Chromium 浏览器（已安装即可，脚本自动检测路径）
-- Claude Desktop 或 Claude Code（用于运行 SKILL.md）
+- Claude、Codex类 Agent工具（用于运行 SKILL.md）
 
 ## 安装
 
@@ -23,7 +23,7 @@ npm install puppeteer-core
 ## 快速开始
 
 1. 将工具包目录告知 Claude，或将 SKILL.md 添加到你的 Claude 项目
-2. 把你写好的内容文字发给 Claude，说"帮我出小红书图文"
+2. 把你写好的内容文字发给 Claude，说"帮我制作图文"
 3. 首次运行会引导你配置品牌色，约 1 分钟完成
 4. AI 自动完成排版 + 封面 + 切图，交付图片文件
 
@@ -32,13 +32,9 @@ npm install puppeteer-core
 - 封面：1080 × 1440 px（PNG）
 - 内容切片：1080 × 1440 px（PNG）× N 张
 
-## 视觉主题
-
-| 主题 | 适用内容 |
-|------|---------|
-| minimal | 干货、测评、知识类 |
-| warm | 生活、经验、分享类 |
-| editorial | 观点、话题、评论类 |
+## 视觉与主题
+6 套预设配色，一键切换整套视觉风格，支持自定义
+26类视觉组件（卡片、步骤、高亮块、金句、对话气泡等）
 
 ## 个性化配置
 
