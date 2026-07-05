@@ -35,6 +35,21 @@ npm install puppeteer-core
 ## 视觉与主题
 6 套预设配色，一键切换整套视觉风格，支持自定义
 26类视觉组件（卡片、步骤、高亮块、金句、对话气泡等）
+<img width="2160" height="2098" alt="preset-preview" src="https://github.com/user-attachments/assets/f0daa568-3d9e-4936-9e9f-72ccb5960c20" />
+<img width="2160" height="2880" alt="01" src="https://github.com/user-attachments/assets/2d23047d-0885-40bc-82ea-31984437c603" />
+<img width="2160" height="2880" alt="02" src="https://github.com/user-attachments/assets/c2355b3c-06b4-48fb-8617-6a460602e1e9" />
+<img width="2160" height="2880" alt="03" src="https://github.com/user-attachments/assets/f2a45b45-918e-4a90-aad9-c5f4ff38ee74" />
+<img width="2160" height="2880" alt="04" src="https://github.com/user-attachments/assets/ae8bafe9-186f-40cc-a4ce-5ab7de9f233a" />
+<img width="2160" height="2880" alt="05" src="https://github.com/user-attachments/assets/69577e6c-6821-4d9b-b261-20f0fbb692e9" />
+<img width="2160" height="2880" alt="06" src="https://github.com/user-attachments/assets/a549d7ac-5b3c-4034-9c29-8c6fa4b0345d" />
+<img width="2160" height="2880" alt="07" src="https://github.com/user-attachments/assets/13707125-1244-498c-9ec7-962bd3efec65" />
+<img width="2160" height="3210" alt="08" src="https://github.com/user-attachments/assets/cb45d985-81b7-408d-8b81-4ab95480d238" />
+
+
+
+
+
+
 
 ## 个性化配置
 
