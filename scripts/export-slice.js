@@ -4,11 +4,11 @@ const fs = require('fs');
 
 function findChrome() {
   const candidates = [
-    // Windows
+    // Windows Chrome
     'C:/Program Files/Google/Chrome/Application/chrome.exe',
     'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe',
     process.env.LOCALAPPDATA + '/Google/Chrome/Application/chrome.exe',
-    // macOS
+    // macOS Chrome
     '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
     // Windows Edge（系统预装）
     'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',
@@ -78,7 +78,17 @@ if (!inputArg) {
 
       const gaps = [];
 
-      const blockSelectors = '.card, .step, .steps, .hl-block, .pitfall, .section, .flow-row, .compare, .img-wrap, .transform-block, .cost-table, .footer, .header, .page-break, hr, .decision-tree, .dt-question, .dt-fork, .dt-path-card, .scene-tags, .param-panel, .param-row, .conclusion-bar, .note-card';
+      // 块级边界：原有组件 + v3.1 新增组件
+      const blockSelectors = [
+        // 原有
+        '.card, .step, .steps, .hl-block, .pitfall, .section, .flow-row, .compare',
+        '.img-wrap, .transform-block, .cost-table, .footer, .header, .page-break, hr',
+        '.decision-tree, .dt-question, .dt-fork, .dt-path-card, .scene-tags',
+        '.param-panel, .param-row, .conclusion-bar, .note-card',
+        // v3.1 新增
+        '.quote-block, .big-number, .score-card, .ck-group, .chat'
+      ].join(', ');
+
       const blocks = document.querySelectorAll(blockSelectors);
 
       for (const el of blocks) {
@@ -94,7 +104,24 @@ if (!inputArg) {
         }
       }
 
-      const textContainers = document.querySelectorAll('.card-body, .step-desc, .pitfall-body, .hl-block, .subtitle, .desc, p, .dt-path-desc, .dt-path-result, .pr-note, .pr-name, .cb-text, .nc-body, .scene-tag, .st-label');
+      // 文本行容器：原有 + v3.1 新增
+      const textContainerSels = [
+        // 原有
+        '.card-body, .step-desc, .pitfall-body, .hl-block, .subtitle, .desc, p',
+        '.dt-path-desc, .dt-path-result, .pr-note, .pr-name, .cb-text, .nc-body',
+        '.scene-tag, .st-label',
+        // v3.1 新增
+        '.step-title, .card-title, .loc, .pretitle',
+        '.bn-num, .bn-desc',
+        '.q-text, .q-author',
+        '.ck-text',
+        '.ch-content',
+        '.dt-q-text',
+        '.sc-title, .sc-desc',
+        '.tf-prompt'
+      ].join(', ');
+
+      const textContainers = document.querySelectorAll(textContainerSels);
       for (const container of textContainers) {
         const rect = container.getBoundingClientRect();
         const containerTop = rect.top + window.scrollY;
@@ -179,13 +206,11 @@ if (!inputArg) {
 
     const filePath = path.join(outputDir, `${String(i + 1).padStart(2, '0')}.png`);
 
-    // 计算输出参数
     let outputHeight, contentY;
     if (isFirst) {
       outputHeight = sliceHeight;
       contentY = 0;
     } else if (isLast) {
-      // 末页按实际内容高度，不强制裁切到标准切片
       outputHeight = Math.min(contentH + MARGIN * 2, sliceHeight * 2);
       contentY = MARGIN;
     } else {
@@ -193,7 +218,6 @@ if (!inputArg) {
       contentY = MARGIN;
     }
 
-    // 截取内容段到临时文件
     const tempFile = path.join(tempDir, `seg_${i}.png`);
     await page.screenshot({
       path: tempFile,
@@ -201,7 +225,6 @@ if (!inputArg) {
       clip: { x: 0, y, width: 1080, height: contentH }
     });
 
-    // 创建合成器 HTML（引用本地文件，不用 base64）
     const compositorHtml = `<!DOCTYPE html><html><head><style>
       *{margin:0;padding:0}
       body{width:1080px;height:${outputHeight}px;overflow:hidden;background:${bgColor}}
@@ -213,7 +236,6 @@ if (!inputArg) {
     const compHtmlPath = path.join(tempDir, `comp_${i}.html`);
     fs.writeFileSync(compHtmlPath, compositorHtml);
 
-    // 打开合成器页面并截图
     const compPage = await browser.newPage();
     await compPage.setViewport({ width: 1080, height: outputHeight, deviceScaleFactor: 2 });
     await compPage.goto('file://' + compHtmlPath, { waitUntil: 'networkidle0' });
@@ -231,7 +253,6 @@ if (!inputArg) {
     console.log(`✓ 第${i + 1}张 → ${path.basename(filePath)} | 内容${Math.round(contentH)}px → 输出${outputHeight}px ${info}`);
   }
 
-  // 清理临时文件
   fs.rmSync(tempDir, { recursive: true, force: true });
 
   await browser.close();
