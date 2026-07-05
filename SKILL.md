@@ -1,12 +1,34 @@
 ---
 name: lworkspace-xhs-maker
 description: 小红书图文视觉生产工具包。用户提供定稿内容，AI 完成封面生成 + 内容页排版 + 切图导出。触发词：出图、排版、做图、小红书图文、切片、图文制作、做封面。
-version: 1.0.0
+version: 1.1.0
 ---
 
 # XHS Visual Pipeline
 
 ## 触发后第一步：环境检查
+
+### 文件完整性检查（最优先执行）
+
+确认以下核心文件/目录在本地存在：
+- `preset-preview.html`
+- `presets/` 目录（含 6 个 .css 文件）
+- `scripts/` 目录（含 export-slice.js、export-cover.js、export-fullpage.js）
+- `templates/` 目录（含 base.html、cover.html、components.html、tokens.css）
+
+**任意文件缺失** → 停止，不得进入后续流程，告知用户先完成工具包部署：
+
+> 工具包文件不完整，请先完成部署：
+> ```bash
+> git clone https://github.com/Leo-lin88/lworkspace-xhs-maker.git
+> cd lworkspace-xhs-maker
+> npm install puppeteer-core
+> ```
+> 完成后重新告诉我「开始」。
+
+**⛔ 文件未就位前，禁止进入初始化或内容流程。**
+
+---
 
 ### 依赖检查
 
@@ -14,19 +36,24 @@ version: 1.0.0
 - **不存在** → 告知用户「首次运行需要安装依赖，请稍等」，执行 `npm install puppeteer-core`，完成后继续
 - **已存在** → 跳过
 
+---
+
 ### 品牌配置检查
 
 读取 `config/brand.css`，判断是否已有用户配置（`:root` 块内有非注释的变量值）。
 
 #### 未配置：可视化引导初始化
 
-**第一步：生成预设预览页**
+**⛔ 硬约束：配色选择必须通过 preset-preview.html 进行，禁止通过文字提问（如"你偏好哪种配色风格？"）替代 HTML 预览流程。** 若 preset-preview.html 不存在，回到文件完整性检查步骤。
 
-将工具包根目录下的 `preset-preview.html` 的完整 `file://` 路径告知用户，引导他在浏览器中打开查看 6 种配色方案，例如：
+**第一步：发送预设预览页路径**
 
-> 请在浏览器打开以下链接查看配色预设，选好后告诉我编号或名称：
-> `file:///[工具包实际路径]/preset-preview.html`
->（路径根据实际工具包位置调整）
+获取工具包根目录下 `preset-preview.html` 的完整本地路径，发给用户：
+
+> 请在浏览器打开以下链接，查看 6 种配色方案，选好后告诉我编号（①–⑥）或名称：
+> `file:///[工具包实际绝对路径]/preset-preview.html`
+
+等待用户查看并回复选择，不得在用户查看前提前询问偏好。
 
 **第二步：等待用户选择**
 
@@ -51,15 +78,15 @@ version: 1.0.0
 
 **第三步：生成组件库参考文件**
 
-基于 `visual-library.html` 模板，将第二行 CSS 引用更新为与 `base.html` 相同的路径，保存文件。
+将 `visual-library.html` 的第二行 CSS 引用更新为与 `base.html` 相同的路径，保存文件。
 
 然后告知用户两个文件的用途：
 
 > 配置完成。两个参考文件供你后续使用：
 > - 配色预览：`file:///[工具包路径]/preset-preview.html`（选色时参考）
-> - 组件库：`file:///[工具包路径]/visual-library.html`（查看所有组件的实际效果，改 brand.css 后刷新即可看到变化）
+> - 组件库：`file:///[工具包路径]/visual-library.html`（查看所有组件效果，改 brand.css 后刷新即可看变化）
 
-### 已配置：直接进入内容流程
+#### 已配置：直接进入内容流程
 
 ---
 
@@ -92,7 +119,7 @@ version: 1.0.0
 | 观点表达 | section + highlight block × 2-3 + note card + conclusion bar |
 
 组件选择原则：
-- 一张切片（1440px 高度）内放 2-4 个组件，不要过度填充
+- 一张切片（1440px 高度）内放**2-4个**主要组件，宁少勿多，留白是设计的一部分
 - 重点信息用 highlight block 或 conclusion bar 强调
 - 不自行创建 components.html 中不存在的新组件
 
@@ -143,4 +170,22 @@ version: 1.0.0
 
 ### Step 6：交付
 
-向用户展示以下文件路径（只展示图片，不展
+向用户展示以下文件路径（只展示图片，不展示 HTML 中间文件）：
+- `产出/封面.png`（1080×1440）
+- `产出/01.png`、`02.png` ...（切片，1080×1440）
+
+---
+
+## 路径说明
+
+本 skill 通过相对路径引用工具文件。调用方需告知当前工作内容的目录路径，或将工具包根目录加入路径引用。
+
+**推荐工作目录结构**：
+```
+我的内容项目/
+├── lworkspace-xhs-maker/   ← 本工具包（clone 后放置于此）
+└── 07-05 我的选题/
+    ├── demo.html          ← 从 lworkspace-xhs-maker/templates/base.html 复制
+    ├── cover.html         ← 从 lworkspace-xhs-maker/templates/cover.html 复制
+    └── 产出/
+```
